@@ -10,7 +10,7 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  aign-items: center;
+  align-items: center;
 `;
 
 export { Row, Column };
