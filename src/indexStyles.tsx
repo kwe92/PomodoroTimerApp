@@ -17,8 +17,17 @@ body{
     background: ${(props) => props.theme.darkColors.shade1};
 }
 
+li{
+  list-style-type: none;
+}
+
 #options-menu{
   background: ${(props) => props.theme.darkColors.shade0};
+  color: ${(props) => props.theme.lightColors.shade0};
+}
+
+#bubble{
+  background: ${(props) => props.theme.otherColors.red0};
 }
 `;
 
