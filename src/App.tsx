@@ -1,7 +1,8 @@
 import React from "react";
+import PomodoroTimer from "./components/timer/Timer";
 
 const App = () => {
-  return <h1>App</h1>;
+  return <PomodoroTimer />;
 };
 
 export default App;
