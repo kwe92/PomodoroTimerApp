@@ -14,7 +14,11 @@ const AppGlobalTheme = createGlobalStyle<Props>`
 }
 
 body{
-    background: lightblue;
+    background: ${(props) => props.theme.darkColors.shade1};
+}
+
+#options-menu{
+  background: ${(props) => props.theme.darkColors.shade0};
 }
 `;
 
