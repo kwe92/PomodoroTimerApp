@@ -34,8 +34,13 @@ const PomodoroTimer = () => {
   const [timerText, setTimerText] = useState("START");
   const options: String[] = ["pomodoro", "short break", "long break"];
   const time = new Date();
-  time.setSeconds(time.getSeconds() + 600); // 10 minutes timer
+  time.setSeconds(time.getSeconds() + 12); // time.getSeconds() + n SEC timer
 
+  const timerSettings: TimerSettings = {
+    autoStart: false,
+    expiryTimestamp: time,
+    onExpire: () => console.warn("onExpire called"),
+  };
   const {
     seconds,
     minutes,
@@ -46,10 +51,7 @@ const PomodoroTimer = () => {
     pause,
     resume,
     restart,
-  } = useTimer({
-    expiryTimestamp: time,
-    onExpire: () => console.warn("onExpire called"),
-  });
+  } = useTimer(timerSettings);
 
   return (
     <TimerContentContainer>
@@ -65,6 +67,7 @@ const PomodoroTimer = () => {
           }}
           onClick={() => {
             if (pomodoro) {
+              restart(timerSettings.expiryTimestamp, false);
               return;
             } else {
               setPomodoro(true);
@@ -131,12 +134,9 @@ const PomodoroTimer = () => {
         <Circle1 id="c1" />
         <Circle2 />
         <Circle3>
-          <p
-            style={{ color: "white", fontSize: "100px" }}
-          >{`${minutes}:${seconds
-            .toPrecision(2)
-            .toString()
-            .replace(".", "")}`}</p>
+          <p style={{ color: "white", fontSize: "100px" }}>{`${minutes}:${
+            seconds < 10 ? `0${seconds}` : seconds
+          }`}</p>
           {/* GAP */}
           <div style={{ height: "36px" }} />
 
@@ -149,9 +149,14 @@ const PomodoroTimer = () => {
               // textAlign: "center",
             }}
             onClick={() => {
-              timerText == "START"
-                ? setTimerText("PAUSE")
-                : setTimerText("START");
+              if (timerText == "START") {
+                setTimerText("PAUSE");
+                start();
+                return;
+              } else {
+                setTimerText("START");
+                pause();
+              }
             }}
           >
             {timerText}
