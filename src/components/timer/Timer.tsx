@@ -1,4 +1,6 @@
 import React, { Fragment } from "react";
+
+// TODO: Refactor divs into tyled components
 import {
   OptionsMenu,
   TimerContentContainer,
@@ -7,6 +9,7 @@ import {
   Circle1,
   Circle2,
   Circle3,
+  GearIcon,
 } from "./timerStyles";
 
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
@@ -46,7 +49,21 @@ const PomodoroTimer = () => {
       >
         <Circle1 id="c1" />
         <Circle2 />
-        <Circle3 />
+        <Circle3>
+          <h1 style={{ color: "white" }}>Some Content</h1>
+        </Circle3>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "end",
+          alignItems: "center",
+          background: "orange",
+          height: "23.5rem",
+        }}
+      >
+        <GearIcon />
       </div>
     </TimerContentContainer>
   );
