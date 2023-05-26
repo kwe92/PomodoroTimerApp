@@ -19,3 +19,5 @@ interface ThemeInterface {
         red0: "rgba(248,112,112,1)",
       },   
 }
+
+type SetState<T> = Dispatch<SetStateAction<T>>;
