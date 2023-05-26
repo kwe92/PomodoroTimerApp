@@ -15,6 +15,7 @@ const AppGlobalTheme = createGlobalStyle<Props>`
 
 body{
     background: ${(props) => props.theme.darkColors.shade1};
+    font-family: 'Kumbh Sans', sans-serif;
 }
 
 li{
