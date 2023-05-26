@@ -68,6 +68,7 @@ const PomodoroTimer = () => {
           onClick={() => {
             if (pomodoro) {
               restart(timerSettings.expiryTimestamp, false);
+              setTimerText("START");
               return;
             } else {
               setPomodoro(true);
