@@ -17,10 +17,12 @@ const Title = styled.p`
 `;
 
 const OptionsMenu = styled(Row)`
-  justify-content: space-evenly;
+  position: relative;
+  z-index: 1;
   width: 23.3125rem;
   height: 3.9375rem;
   border-radius: 3.125rem;
+  justify-content: space-evenly;
 
   p {
     font-size: 0.875rem;
