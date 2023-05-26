@@ -50,7 +50,19 @@ const PomodoroTimer = () => {
         <Circle1 id="c1" />
         <Circle2 />
         <Circle3>
-          <h1 style={{ color: "white" }}>Some Content</h1>
+          <p style={{ color: "white", fontSize: "100px" }}>65:48</p>
+          {/* GAP */}
+          <div style={{ height: "36px" }} />
+
+          <p
+            style={{
+              fontSize: "1rem",
+              letterSpacing: "15px",
+              color: "rgba(215,224,255,1)",
+            }}
+          >
+            RESTART
+          </p>
         </Circle3>
       </div>
       <div
@@ -59,8 +71,8 @@ const PomodoroTimer = () => {
           flexDirection: "column",
           justifyContent: "end",
           alignItems: "center",
-          background: "orange",
-          height: "23.5rem",
+          // background: "orange",
+          height: "23rem",
         }}
       >
         <GearIcon />
