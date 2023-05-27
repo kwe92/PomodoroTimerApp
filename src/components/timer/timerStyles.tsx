@@ -52,9 +52,10 @@ const Circle1 = styled(Column)`
   width: 25.625rem;
   height: 25.625rem;
   border-radius: ${25.625 / 2}rem;
-  // border: 1px solid purple;
+  // border: 0.0625rem solid purple;
   position: absolute;
-  box-shadow: -50px -50px 100px 0 #272c5a, 50px 50px 100px 0 #121530;
+  box-shadow: -3.125rem -3.125rem 6.25rem 0 #272c5a,
+    3.125rem 3.125rem 16.25rem 0 #121530;
   // ?? background-image covers the middle div
   background-image: linear-gradient(-45deg, #2e325a 0%, #0e112a 100%);
 `;
