@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TimerSettings } from "react-timer-hook";
 
 import {
@@ -19,17 +19,14 @@ import { useTimer } from "react-timer-hook";
 
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
 const PomodoroTimer = () => {
-  const [pomodoro, setPomodoro] = useState(true);
+  const [pomodoroOption, setPomodoroOption] = useState(true);
   const [shortBreakOption, setShortBreakOption] = useState(false);
   const [longBreakOption, setLongBreakOption] = useState(false);
-
+  const [pomodoro, setPomodoro] = useState(16);
   const [shortBreak, setShortBreak] = useState(5);
   const [longBreak, setLongBreak] = useState(15);
-  const [] = useState();
+  const [timer, setTimer] = useState(new Date());
   const [timerText, setTimerText] = useState("START");
-  const options: String[] = ["pomodoro", "short break", "long break"];
-  const timer = new Date();
-  timer.setSeconds(timer.getSeconds() + 60 * 3); // time.getSeconds() + n SEC timer
 
   const timerSettings: TimerSettings = {
     autoStart: false,
@@ -48,40 +45,48 @@ const PomodoroTimer = () => {
     restart,
   } = useTimer(timerSettings);
 
+  useEffect(() => {
+    setTimer(new Date());
+    timer.setSeconds(timer.getSeconds() + (60 * pomodoro) / 2);
+    restart(timer, false);
+  }, [pomodoro]);
+
+  const handleSwitchOption = (time: number) => {
+    pause();
+    setTimer(new Date());
+    timer.setSeconds(timer.getSeconds() + 60 * time);
+    restart(timer, false);
+    setTimerText("START");
+  };
+
   const handlePomodoroOption = () => {
-    if (pomodoro) {
-      pause();
-      restart(timer, false);
-      setTimerText("START");
+    handleSwitchOption(pomodoro);
+    if (pomodoroOption) {
       return;
     } else {
-      setPomodoro(true);
+      setPomodoroOption(true);
       setShortBreakOption(false);
       setLongBreakOption(false);
     }
   };
-  // TODO: Fix short break timer display
-  const handleShortBreakOption = () => {
-    const timer = new Date();
-    if (shortBreakOption) {
-      pause();
-      restart(timer, false);
-      timer.setSeconds(60 * 5);
-      restart(timer, false);
 
+  const handleShortBreakOption = () => {
+    handleSwitchOption(shortBreak);
+    if (shortBreakOption) {
       return;
     } else {
-      setPomodoro(false);
+      setPomodoroOption(false);
       setShortBreakOption(true);
       setLongBreakOption(false);
     }
   };
 
   const handleLongBreakOption = () => {
+    handleSwitchOption(longBreak);
     if (longBreakOption) {
       return;
     } else {
-      setPomodoro(false);
+      setPomodoroOption(false);
       setShortBreakOption(false);
       setLongBreakOption(true);
     }
@@ -105,7 +110,7 @@ const PomodoroTimer = () => {
       <OptionsMenu id="options-menu">
         <HighlightBubble
           id="bubble"
-          display={pomodoro}
+          display={pomodoroOption}
           onClick={handlePomodoroOption}
         >
           <p>pomodoro</p>
@@ -132,7 +137,7 @@ const PomodoroTimer = () => {
           <p style={{ color: "white", fontSize: "6.25rem" }}>{`${minutes}:${
             seconds < 10 ? `0${seconds}` : seconds
           }`}</p>
-          <div style={{ height: "36px" }} />
+          <div style={{ height: "2.25rem" }} />
           <TimerText onClick={handleTimerText}>{timerText}</TimerText>
         </Circle3>
       </CirclesContainer>
