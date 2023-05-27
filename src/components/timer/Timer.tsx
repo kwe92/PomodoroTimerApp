@@ -20,6 +20,7 @@ import {
   Circle2,
   Circle3,
   GearIcon,
+  CirclesContainer,
 } from "./timerStyles";
 
 import { useTimer } from "react-timer-hook";
@@ -53,6 +54,39 @@ const PomodoroTimer = () => {
     restart,
   } = useTimer(timerSettings);
 
+  const handlePomodoroOption = () => {
+    if (pomodoro) {
+      restart(timerSettings.expiryTimestamp, false);
+      setTimerText("START");
+      return;
+    } else {
+      setPomodoro(true);
+      setShortBreak(false);
+      setLongBreak(false);
+    }
+  };
+
+  const handleShortBreakOption = () => {
+    if (shortBreak) {
+      return;
+    }
+    {
+      setPomodoro(false);
+      setShortBreak(true);
+      setLongBreak(false);
+    }
+  };
+
+  const handleLongBreakOption = () => {
+    if (longBreak) {
+      return;
+    } else {
+      setPomodoro(false);
+      setShortBreak(false);
+      setLongBreak(true);
+    }
+  };
+
   return (
     <TimerContentContainer>
       <Title>pomodoro</Title>
@@ -60,63 +94,20 @@ const PomodoroTimer = () => {
       <OptionsMenu id="options-menu">
         <HighlightBubble
           id="bubble"
-          style={{
-            background: pomodoro
-              ? theme.otherColors.red0
-              : theme.darkColors.shade0,
-          }}
-          onClick={() => {
-            if (pomodoro) {
-              restart(timerSettings.expiryTimestamp, false);
-              setTimerText("START");
-              return;
-            } else {
-              setPomodoro(true);
-              setShortBreak(false);
-              setLongBreak(false);
-            }
-          }}
+          display={pomodoro}
+          onClick={handlePomodoroOption}
         >
           <p>pomodoro</p>
         </HighlightBubble>
 
         <HighlightBubble
           id="bubble"
-          style={{
-            background: shortBreak
-              ? theme.otherColors.red0
-              : theme.darkColors.shade0,
-          }}
-          onClick={() => {
-            if (shortBreak) {
-              return;
-            }
-            {
-              setPomodoro(false);
-              setShortBreak(true);
-              setLongBreak(false);
-            }
-          }}
+          display={shortBreak}
+          onClick={handleShortBreakOption}
         >
           <p>short break</p>
         </HighlightBubble>
-        <HighlightBubble
-          id="bubble"
-          style={{
-            background: longBreak
-              ? theme.otherColors.red0
-              : theme.darkColors.shade0,
-          }}
-          onClick={() => {
-            if (longBreak) {
-              return;
-            } else {
-              setPomodoro(false);
-              setShortBreak(false);
-              setLongBreak(true);
-            }
-          }}
-        >
+        <HighlightBubble display={longBreak} onClick={handleLongBreakOption}>
           <p>long break</p>
         </HighlightBubble>
       </OptionsMenu>
@@ -125,9 +116,9 @@ const PomodoroTimer = () => {
           position: "relative",
           top: "10rem",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "green",
           height: "10rem",
           width: "4rem",
         }}
