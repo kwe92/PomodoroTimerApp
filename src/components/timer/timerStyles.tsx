@@ -33,20 +33,19 @@ const HighlightBubble = styled(Row)<{ display: boolean }>`
   width: 7.5rem;
   height: 3rem;
   border-radius: 3.125rem;
+  cursor: pointer;
   background: ${(props) =>
     props.display ? theme.otherColors.red0 : theme.darkColors.shade0};
 `;
 
 const CirclesContainer = styled(Column)`
-
-position: relative:
-top: 10rem:
-display: flex:
-alignItems: center:
-justifyContent: center:
-height: 10rem:
-width: 4rem:
-
+  position: relative;
+  top: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10rem;
+  width: 4rem;
 `;
 
 const Circle1 = styled(Column)`
@@ -83,6 +82,14 @@ const GearIcon = styled(IoMdSettings)`
   color: ${theme.lightColors.shade0};
 `;
 
+const TimerText = styled.p`
+  position: relative;
+  font-size: 1rem;
+  letter-spacing: 0.9375rem;
+  color: rgba(215, 224, 255, 1);
+  cursor: pointer;
+`;
+
 export {
   TimerContentContainer,
   Title,
@@ -93,4 +100,5 @@ export {
   Circle3,
   GearIcon,
   CirclesContainer,
+  TimerText,
 };
