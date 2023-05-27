@@ -20,16 +20,20 @@ import { useTimer } from "react-timer-hook";
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
 const PomodoroTimer = () => {
   const [pomodoro, setPomodoro] = useState(true);
-  const [shortBreak, setShortBreak] = useState(false);
-  const [longBreak, setLongBreak] = useState(false);
+  const [shortBreakOption, setShortBreakOption] = useState(false);
+  const [longBreakOption, setLongBreakOption] = useState(false);
+
+  const [shortBreak, setShortBreak] = useState(5);
+  const [longBreak, setLongBreak] = useState(15);
+  const [] = useState();
   const [timerText, setTimerText] = useState("START");
   const options: String[] = ["pomodoro", "short break", "long break"];
-  const time = new Date();
-  time.setSeconds(time.getSeconds() + 60 * 3); // time.getSeconds() + n SEC timer
+  const timer = new Date();
+  timer.setSeconds(timer.getSeconds() + 60 * 3); // time.getSeconds() + n SEC timer
 
   const timerSettings: TimerSettings = {
     autoStart: false,
-    expiryTimestamp: time,
+    expiryTimestamp: timer,
     onExpire: () => console.warn("onExpire called"),
   };
   const {
@@ -47,33 +51,39 @@ const PomodoroTimer = () => {
   const handlePomodoroOption = () => {
     if (pomodoro) {
       pause();
-      restart(timerSettings.expiryTimestamp, false);
+      restart(timer, false);
       setTimerText("START");
       return;
     } else {
       setPomodoro(true);
-      setShortBreak(false);
-      setLongBreak(false);
+      setShortBreakOption(false);
+      setLongBreakOption(false);
     }
   };
-
+  // TODO: Fix short break timer display
   const handleShortBreakOption = () => {
-    if (shortBreak) {
+    const timer = new Date();
+    if (shortBreakOption) {
+      pause();
+      restart(timer, false);
+      timer.setSeconds(60 * 5);
+      restart(timer, false);
+
       return;
     } else {
       setPomodoro(false);
-      setShortBreak(true);
-      setLongBreak(false);
+      setShortBreakOption(true);
+      setLongBreakOption(false);
     }
   };
 
   const handleLongBreakOption = () => {
-    if (longBreak) {
+    if (longBreakOption) {
       return;
     } else {
       setPomodoro(false);
-      setShortBreak(false);
-      setLongBreak(true);
+      setShortBreakOption(false);
+      setLongBreakOption(true);
     }
   };
 
@@ -103,12 +113,15 @@ const PomodoroTimer = () => {
 
         <HighlightBubble
           id="bubble"
-          display={shortBreak}
+          display={shortBreakOption}
           onClick={handleShortBreakOption}
         >
           <p>short break</p>
         </HighlightBubble>
-        <HighlightBubble display={longBreak} onClick={handleLongBreakOption}>
+        <HighlightBubble
+          display={longBreakOption}
+          onClick={handleLongBreakOption}
+        >
           <p>long break</p>
         </HighlightBubble>
       </OptionsMenu>
