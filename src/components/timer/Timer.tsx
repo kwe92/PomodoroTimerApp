@@ -1,16 +1,6 @@
-import React, {
-  Dispatch,
-  Fragment,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-
-import AppTheme from "../../styles/theme/AppTheme";
-
+import React, { useState } from "react";
 import { TimerSettings } from "react-timer-hook";
 
-// TODO: Refactor divs into tyled components
 import {
   OptionsMenu,
   TimerContentContainer,
@@ -21,11 +11,10 @@ import {
   Circle3,
   GearIcon,
   CirclesContainer,
+  TimerText,
 } from "./timerStyles";
 
 import { useTimer } from "react-timer-hook";
-
-const theme = AppTheme;
 
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
 const PomodoroTimer = () => {
@@ -87,6 +76,17 @@ const PomodoroTimer = () => {
     }
   };
 
+  const handleTimerText = () => {
+    if (timerText == "START") {
+      setTimerText("PAUSE");
+      start();
+      return;
+    } else {
+      setTimerText("START");
+      pause();
+    }
+  };
+
   return (
     <TimerContentContainer>
       <Title>pomodoro</Title>
@@ -111,50 +111,20 @@ const PomodoroTimer = () => {
           <p>long break</p>
         </HighlightBubble>
       </OptionsMenu>
-      <div
-        style={{
-          position: "relative",
-          top: "10rem",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "10rem",
-          width: "4rem",
-        }}
-      >
+      <CirclesContainer>
         <Circle1 id="c1" />
         <Circle2 />
         <Circle3>
-          <p style={{ color: "white", fontSize: "100px" }}>{`${minutes}:${
+          <p style={{ color: "white", fontSize: "6.25rem" }}>{`${minutes}:${
             seconds < 10 ? `0${seconds}` : seconds
           }`}</p>
           {/* GAP */}
           <div style={{ height: "36px" }} />
 
           {/* TODO: TURN INTO BUTTONS ? */}
-          <p
-            style={{
-              fontSize: "1rem",
-              letterSpacing: "15px",
-              color: "rgba(215,224,255,1)",
-              // textAlign: "center",
-            }}
-            onClick={() => {
-              if (timerText == "START") {
-                setTimerText("PAUSE");
-                start();
-                return;
-              } else {
-                setTimerText("START");
-                pause();
-              }
-            }}
-          >
-            {timerText}
-          </p>
+          <TimerText onClick={handleTimerText}>{timerText}</TimerText>
         </Circle3>
-      </div>
+      </CirclesContainer>
       <div
         style={{
           display: "flex",
