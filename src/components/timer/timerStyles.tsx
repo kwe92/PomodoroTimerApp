@@ -29,11 +29,26 @@ const OptionsMenu = styled(Row)`
   }
 `;
 // TODO Needs work
-const HighlightBubble = styled(Row)`
+const HighlightBubble = styled(Row)<{ display: boolean }>`
   width: 7.5rem;
   height: 3rem;
   border-radius: 3.125rem;
+  background: ${(props) =>
+    props.display ? theme.otherColors.red0 : theme.darkColors.shade0};
 `;
+
+const CirclesContainer = styled(Column)`
+
+position: relative:
+top: 10rem:
+display: flex:
+alignItems: center:
+justifyContent: center:
+height: 10rem:
+width: 4rem:
+
+`;
+
 const Circle1 = styled(Column)`
   width: 25.625rem;
   height: 25.625rem;
@@ -77,4 +92,5 @@ export {
   Circle2,
   Circle3,
   GearIcon,
+  CirclesContainer,
 };
