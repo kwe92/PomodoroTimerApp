@@ -12,6 +12,7 @@ import {
   GearIcon,
   CirclesContainer,
   TimerText,
+  GearIconContainer,
 } from "./timerStyles";
 
 import { useTimer } from "react-timer-hook";
@@ -58,8 +59,7 @@ const PomodoroTimer = () => {
   const handleShortBreakOption = () => {
     if (shortBreak) {
       return;
-    }
-    {
+    } else {
       setPomodoro(false);
       setShortBreak(true);
       setLongBreak(false);
@@ -118,25 +118,13 @@ const PomodoroTimer = () => {
           <p style={{ color: "white", fontSize: "6.25rem" }}>{`${minutes}:${
             seconds < 10 ? `0${seconds}` : seconds
           }`}</p>
-          {/* GAP */}
           <div style={{ height: "36px" }} />
-
-          {/* TODO: TURN INTO BUTTONS ? */}
           <TimerText onClick={handleTimerText}>{timerText}</TimerText>
         </Circle3>
       </CirclesContainer>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "end",
-          alignItems: "center",
-          // background: "orange",
-          height: "23rem",
-        }}
-      >
+      <GearIconContainer>
         <GearIcon />
-      </div>
+      </GearIconContainer>
     </TimerContentContainer>
   );
 };

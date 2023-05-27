@@ -76,6 +76,14 @@ const Circle3 = styled(Column)`
   position: absolute;
 `;
 
+const GearIconContainer = styled.div`
+  height: 23rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+`;
+
 const GearIcon = styled(IoMdSettings)`
   width: 1.75rem;
   height: 1.75rem;
@@ -99,6 +107,7 @@ export {
   Circle2,
   Circle3,
   GearIcon,
+  GearIconContainer,
   CirclesContainer,
   TimerText,
 };
