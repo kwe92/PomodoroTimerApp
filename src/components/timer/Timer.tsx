@@ -25,7 +25,7 @@ const PomodoroTimer = () => {
   const [timerText, setTimerText] = useState("START");
   const options: String[] = ["pomodoro", "short break", "long break"];
   const time = new Date();
-  time.setSeconds(time.getSeconds() + 12); // time.getSeconds() + n SEC timer
+  time.setSeconds(time.getSeconds() + 60 * 3); // time.getSeconds() + n SEC timer
 
   const timerSettings: TimerSettings = {
     autoStart: false,
@@ -46,6 +46,7 @@ const PomodoroTimer = () => {
 
   const handlePomodoroOption = () => {
     if (pomodoro) {
+      pause();
       restart(timerSettings.expiryTimestamp, false);
       setTimerText("START");
       return;
