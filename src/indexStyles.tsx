@@ -27,10 +27,6 @@ li{
   color: ${(props) => props.theme.lightColors.shade0};
 }
 
-#bubble{
-  background: ${(props) => props.theme.otherColors.red0};
-}
-
 // #c1 {
 // box-shadow: 0rem 1.25rem 3rem red, -2.5rem -1.75rem 5rem green;
 
