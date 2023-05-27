@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { Children, useEffect, useState } from "react";
 import { TimerSettings } from "react-timer-hook";
-
+import {
+  CircularProgressbarWithChildren,
+  CircularProgressbar,
+} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { useTimer } from "react-timer-hook";
 import {
   OptionsMenu,
   TimerContentContainer,
@@ -15,8 +20,6 @@ import {
   GearIconContainer,
 } from "./timerStyles";
 
-import { useTimer } from "react-timer-hook";
-
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
 const PomodoroTimer = () => {
   const [pomodoroOption, setPomodoroOption] = useState(true);
@@ -27,6 +30,7 @@ const PomodoroTimer = () => {
   const [longBreak, setLongBreak] = useState(15);
   const [timer, setTimer] = useState(new Date());
   const [timerText, setTimerText] = useState("START");
+  const [timerPercent, setTimerPercent] = useState(1);
 
   const timerSettings: TimerSettings = {
     autoStart: false,
@@ -134,12 +138,27 @@ const PomodoroTimer = () => {
         <Circle1 id="c1" />
         <Circle2 />
         <Circle3>
+          {/* TODO: Get circle progress indicator to work properly */}
+          <div
+            style={{
+              position: "absolute",
+              width: " 21.1875rem",
+              height: "21.1875rem",
+            }}
+          >
+            <CircularProgressbar
+              value={timerPercent}
+              strokeWidth={3}
+              text={`${timerPercent}`}
+            />
+          </div>
           <p style={{ color: "white", fontSize: "6.25rem" }}>{`${minutes}:${
             seconds < 10 ? `0${seconds}` : seconds
           }`}</p>
           <div style={{ height: "2.25rem" }} />
           <TimerText onClick={handleTimerText}>{timerText}</TimerText>
         </Circle3>
+        {/* </_CircularProgressbarWithChildren> */}
       </CirclesContainer>
       <GearIconContainer>
         <GearIcon />
@@ -147,5 +166,15 @@ const PomodoroTimer = () => {
     </TimerContentContainer>
   );
 };
-
+const _CircularProgressbarWithChildren = ({
+  value,
+  children,
+}: {
+  value: number;
+  children: React.ReactNode;
+}) => (
+  <CircularProgressbarWithChildren value={value}>
+    {children}
+  </CircularProgressbarWithChildren>
+);
 export default PomodoroTimer;
