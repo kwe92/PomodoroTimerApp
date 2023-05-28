@@ -30,7 +30,7 @@ const PomodoroTimer = () => {
   const [longBreak, setLongBreak] = useState(15);
   const [timer, setTimer] = useState(new Date());
   const [timerText, setTimerText] = useState("START");
-  const [timerPercent, setTimerPercent] = useState(1);
+  const [timerPercent, setTimerPercent] = useState(100);
 
   const timerSettings: TimerSettings = {
     autoStart: false,
@@ -52,8 +52,33 @@ const PomodoroTimer = () => {
   useEffect(() => {
     setTimer(new Date());
     timer.setSeconds(timer.getSeconds() + (60 * pomodoro) / 2);
+    console.log("time:", timer.getSeconds());
     restart(timer, false);
   }, [pomodoro]);
+
+  // TODO: Still need to work on the ProgressIndicator
+  useEffect(() => {
+    const refreshIntervalId = setInterval(() => {
+      setTimerPercent((prevState) => prevState - 1);
+    }, pomodoro * 1000);
+    setTimeout(() => {
+      console.log("TIMED OUT!");
+      clearInterval(refreshIntervalId);
+    }, (pomodoro * 1000 * pomodoro * 1000) / 2);
+  }, []);
+
+  const startTimerIndicator = (minutes: number) => {
+    const timeMS = minutes * 1000;
+
+    const refreshIntervalId = setInterval(() => {
+      setTimerPercent((prevState) => prevState - 1);
+    }, timeMS);
+    // setTimeout(() => {
+    //   clearInterval(refreshIntervalId);
+    // }, (timeMS * timeMS) / 2);
+  };
+
+  const pauseTimerIndicator = () => {};
 
   const handleSwitchOption = (time: number) => {
     pause();
