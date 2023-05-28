@@ -1,9 +1,6 @@
 import React, { Children, useEffect, useState } from "react";
 import { TimerSettings } from "react-timer-hook";
-import {
-  CircularProgressbarWithChildren,
-  CircularProgressbar,
-} from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useTimer } from "react-timer-hook";
 import {
@@ -19,18 +16,19 @@ import {
   TimerText,
   GearIconContainer,
 } from "./timerStyles";
+import AppTheme from "../../styles/theme/AppTheme";
 
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
 const PomodoroTimer = () => {
   const [pomodoroOption, setPomodoroOption] = useState(true);
   const [shortBreakOption, setShortBreakOption] = useState(false);
   const [longBreakOption, setLongBreakOption] = useState(false);
-  const [pomodoro, setPomodoro] = useState(16);
+  const [pomodoro, setPomodoro] = useState(1);
   const [shortBreak, setShortBreak] = useState(5);
   const [longBreak, setLongBreak] = useState(15);
   const [timer, setTimer] = useState(new Date());
   const [timerText, setTimerText] = useState("START");
-  const [timerPercent, setTimerPercent] = useState(100);
+  const [totalTime, setTotalTime] = useState(0);
 
   const timerSettings: TimerSettings = {
     autoStart: false,
@@ -52,33 +50,14 @@ const PomodoroTimer = () => {
   useEffect(() => {
     setTimer(new Date());
     timer.setSeconds(timer.getSeconds() + (60 * pomodoro) / 2);
-    console.log("time:", timer.getSeconds());
+    setTotalTime(60 * pomodoro);
     restart(timer, false);
   }, [pomodoro]);
 
-  // TODO: Still need to work on the ProgressIndicator
-  useEffect(() => {
-    const refreshIntervalId = setInterval(() => {
-      setTimerPercent((prevState) => prevState - 1);
-    }, pomodoro * 1000);
-    setTimeout(() => {
-      console.log("TIMED OUT!");
-      clearInterval(refreshIntervalId);
-    }, (pomodoro * 1000 * pomodoro * 1000) / 2);
-  }, []);
-
-  const startTimerIndicator = (minutes: number) => {
-    const timeMS = minutes * 1000;
-
-    const refreshIntervalId = setInterval(() => {
-      setTimerPercent((prevState) => prevState - 1);
-    }, timeMS);
-    // setTimeout(() => {
-    //   clearInterval(refreshIntervalId);
-    // }, (timeMS * timeMS) / 2);
-  };
-
-  const pauseTimerIndicator = () => {};
+  // TODO: expand on this if statement to sound an alarm when the tiemr reaches 0
+  if (minutes * 60 + seconds == 0) {
+    console.log("TIME ELAPSED2");
+  }
 
   const handleSwitchOption = (time: number) => {
     pause();
@@ -90,6 +69,7 @@ const PomodoroTimer = () => {
 
   const handlePomodoroOption = () => {
     handleSwitchOption(pomodoro);
+    setTotalTime(60 * pomodoro);
     if (pomodoroOption) {
       return;
     } else {
@@ -101,6 +81,8 @@ const PomodoroTimer = () => {
 
   const handleShortBreakOption = () => {
     handleSwitchOption(shortBreak);
+    setTotalTime(60 * shortBreak);
+
     if (shortBreakOption) {
       return;
     } else {
@@ -112,6 +94,8 @@ const PomodoroTimer = () => {
 
   const handleLongBreakOption = () => {
     handleSwitchOption(longBreak);
+    setTotalTime(60 * longBreak);
+
     if (longBreakOption) {
       return;
     } else {
@@ -124,7 +108,7 @@ const PomodoroTimer = () => {
   const handleTimerText = () => {
     if (timerText == "START") {
       setTimerText("PAUSE");
-      start();
+      resume();
       return;
     } else {
       setTimerText("START");
@@ -171,10 +155,13 @@ const PomodoroTimer = () => {
               height: "21.1875rem",
             }}
           >
+            {/* refactor: pathColor to be useContext or observable state from settings */}
             <CircularProgressbar
-              value={timerPercent}
+              value={((minutes * 60 + seconds) / totalTime) * 100}
               strokeWidth={3}
-              text={`${timerPercent}`}
+              styles={buildStyles({
+                pathColor: AppTheme.otherColors.red0,
+              })}
             />
           </div>
           <p style={{ color: "white", fontSize: "6.25rem" }}>{`${minutes}:${
@@ -183,7 +170,6 @@ const PomodoroTimer = () => {
           <div style={{ height: "2.25rem" }} />
           <TimerText onClick={handleTimerText}>{timerText}</TimerText>
         </Circle3>
-        {/* </_CircularProgressbarWithChildren> */}
       </CirclesContainer>
       <GearIconContainer>
         <GearIcon />
@@ -191,15 +177,5 @@ const PomodoroTimer = () => {
     </TimerContentContainer>
   );
 };
-const _CircularProgressbarWithChildren = ({
-  value,
-  children,
-}: {
-  value: number;
-  children: React.ReactNode;
-}) => (
-  <CircularProgressbarWithChildren value={value}>
-    {children}
-  </CircularProgressbarWithChildren>
-);
+
 export default PomodoroTimer;
