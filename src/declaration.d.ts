@@ -19,5 +19,15 @@ interface ThemeInterface {
         red0: "rgba(248,112,112,1)",
       },   
 }
+interface Options {
+  options: {
+    pomodoroOption: boolean;
+    handlePomodoroOption: VoidFunction;
+    shortBreakOption: boolean;
+    handleShortBreakOption: VoidFunction;
+    longBreakOption: boolean;
+    handleLongBreakOption: VoidFunction;
+  };
+}
 
 type SetState<T> = Dispatch<SetStateAction<T>>;

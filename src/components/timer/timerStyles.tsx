@@ -77,6 +77,12 @@ const Circle3 = styled(Column)`
   position: absolute;
 `;
 
+const CircularProgressbarContainer = styled(Column)`
+  width: 21.1875rem;
+  height: 21.1875rem;
+  position: absolute;
+`;
+
 const GearIconContainer = styled.div`
   height: 23rem;
   display: flex;
@@ -110,5 +116,6 @@ export {
   GearIcon,
   GearIconContainer,
   CirclesContainer,
+  CircularProgressbarContainer,
   TimerText,
 };

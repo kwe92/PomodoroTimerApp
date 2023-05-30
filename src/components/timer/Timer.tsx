@@ -15,6 +15,7 @@ import {
   CirclesContainer,
   TimerText,
   GearIconContainer,
+  CircularProgressbarContainer,
 } from "./timerStyles";
 import AppTheme from "../../styles/theme/AppTheme";
 
@@ -23,7 +24,7 @@ const PomodoroTimer = () => {
   const [pomodoroOption, setPomodoroOption] = useState(true);
   const [shortBreakOption, setShortBreakOption] = useState(false);
   const [longBreakOption, setLongBreakOption] = useState(false);
-  const [pomodoro, setPomodoro] = useState(1);
+  const [pomodoro, setPomodoro] = useState(16);
   const [shortBreak, setShortBreak] = useState(5);
   const [longBreak, setLongBreak] = useState(15);
   const [timer, setTimer] = useState(new Date());
@@ -54,8 +55,11 @@ const PomodoroTimer = () => {
     restart(timer, false);
   }, [pomodoro]);
 
+  let timeRemaining = minutes * 60 + seconds;
+  let pctTimeRemaining = (timeRemaining / totalTime) * 100;
+
   // TODO: expand on this if statement to sound an alarm when the tiemr reaches 0
-  if (minutes * 60 + seconds == 0) {
+  if (timeRemaining == 0) {
     console.log("TIME ELAPSED2");
   }
 
@@ -116,58 +120,42 @@ const PomodoroTimer = () => {
     }
   };
 
+  const styles = {
+    p: { color: "white", fontSize: "6.25rem" },
+    div: { height: "2.25rem" },
+  };
+
+  const options = {
+    pomodoroOption: pomodoroOption,
+    handlePomodoroOption: handlePomodoroOption,
+    shortBreakOption: shortBreakOption,
+    handleShortBreakOption: handleShortBreakOption,
+    longBreakOption: longBreakOption,
+    handleLongBreakOption: handleLongBreakOption,
+  };
+
   return (
     <TimerContentContainer>
       <Title>pomodoro</Title>
-
-      <OptionsMenu id="options-menu">
-        <HighlightBubble
-          id="bubble"
-          display={pomodoroOption}
-          onClick={handlePomodoroOption}
-        >
-          <p>pomodoro</p>
-        </HighlightBubble>
-
-        <HighlightBubble
-          id="bubble"
-          display={shortBreakOption}
-          onClick={handleShortBreakOption}
-        >
-          <p>short break</p>
-        </HighlightBubble>
-        <HighlightBubble
-          display={longBreakOption}
-          onClick={handleLongBreakOption}
-        >
-          <p>long break</p>
-        </HighlightBubble>
-      </OptionsMenu>
+      <OptMenu options={options} />
       <CirclesContainer>
         <Circle1 id="c1" />
         <Circle2 />
         <Circle3>
-          {/* TODO: Get circle progress indicator to work properly */}
-          <div
-            style={{
-              position: "absolute",
-              width: " 21.1875rem",
-              height: "21.1875rem",
-            }}
-          >
+          <CircularProgressbarContainer>
             {/* refactor: pathColor to be useContext or observable state from settings */}
             <CircularProgressbar
-              value={((minutes * 60 + seconds) / totalTime) * 100}
+              value={pctTimeRemaining}
               strokeWidth={3}
               styles={buildStyles({
                 pathColor: AppTheme.otherColors.red0,
               })}
             />
-          </div>
-          <p style={{ color: "white", fontSize: "6.25rem" }}>{`${minutes}:${
+          </CircularProgressbarContainer>
+          <p style={styles.p}>{`${minutes}:${
             seconds < 10 ? `0${seconds}` : seconds
           }`}</p>
-          <div style={{ height: "2.25rem" }} />
+          <div style={styles.div} />
           <TimerText onClick={handleTimerText}>{timerText}</TimerText>
         </Circle3>
       </CirclesContainer>
@@ -177,5 +165,31 @@ const PomodoroTimer = () => {
     </TimerContentContainer>
   );
 };
+
+const OptMenu = (props: Options) => (
+  <OptionsMenu id="options-menu">
+    <HighlightBubble
+      id="bubble"
+      display={props.options.pomodoroOption}
+      onClick={props.options.handlePomodoroOption}
+    >
+      <p>pomodoro</p>
+    </HighlightBubble>
+
+    <HighlightBubble
+      id="bubble"
+      display={props.options.shortBreakOption}
+      onClick={props.options.handleShortBreakOption}
+    >
+      <p>short break</p>
+    </HighlightBubble>
+    <HighlightBubble
+      display={props.options.longBreakOption}
+      onClick={props.options.handleLongBreakOption}
+    >
+      <p>long break</p>
+    </HighlightBubble>
+  </OptionsMenu>
+);
 
 export default PomodoroTimer;
