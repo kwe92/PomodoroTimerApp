@@ -17,6 +17,7 @@ import {
   GearIconContainer,
   CircularProgressbarContainer,
   SettingsModal as _SettingsModal,
+  CrossIcon,
 } from "./timerStyles";
 import AppTheme from "../../styles/theme/AppTheme";
 import DialogModal from "./DialogModal";
@@ -179,6 +180,7 @@ const PomodoroTimer = () => {
         onProceed={onProceed}
         onClose={() => setIsOpened(false)}
       >
+        {/* Modal Content */}
         <div
           style={{
             display: "flex",
@@ -195,14 +197,20 @@ const PomodoroTimer = () => {
               flexDirection: "column",
               width: "33.75rem",
               height: "30.625rem",
-              alignItems: "center",
-              justifyContent: "center",
               background: "purple",
+              borderRadius: "25px",
             }}
           >
-            <p>a bunch</p>
-            <p>of random</p>
-            <p>TEXT</p>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <h1>Setting</h1>
+              <CrossIcon onClick={() => setIsOpened(false)} />
+            </div>
             <button
               type="button"
               onClick={() => {
@@ -210,10 +218,7 @@ const PomodoroTimer = () => {
                 setIsOpened(false);
               }}
             >
-              Proceed
-            </button>
-            <button type="button" onClick={() => setIsOpened(false)}>
-              Close
+              Apply
             </button>
           </div>
         </div>
