@@ -16,9 +16,10 @@ import {
   TimerText,
   GearIconContainer,
   CircularProgressbarContainer,
+  SettingsModal as _SettingsModal,
 } from "./timerStyles";
 import AppTheme from "../../styles/theme/AppTheme";
-
+// TODO: Continue working on settings
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
 const PomodoroTimer = () => {
   const [pomodoroOption, setPomodoroOption] = useState(true);
@@ -162,6 +163,7 @@ const PomodoroTimer = () => {
       <GearIconContainer>
         <GearIcon />
       </GearIconContainer>
+      {/* <SettingsModal display={true} /> */}
     </TimerContentContainer>
   );
 };
@@ -191,5 +193,25 @@ const OptMenu = (props: Options) => (
     </HighlightBubble>
   </OptionsMenu>
 );
+
+const SettingsModal = ({ display }: { display: boolean }) => {
+  return (
+    <_SettingsModal display={display}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "33.75rem",
+          height: "30.625rem",
+          // position: "relative",
+          background: AppTheme.lightColors.shade2,
+          fontSize: "4rem",
+        }}
+      >
+        HELLLOO
+      </div>
+    </_SettingsModal>
+  );
+};
 
 export default PomodoroTimer;
