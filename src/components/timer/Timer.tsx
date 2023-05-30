@@ -19,6 +19,8 @@ import {
   SettingsModal as _SettingsModal,
 } from "./timerStyles";
 import AppTheme from "../../styles/theme/AppTheme";
+import DialogModal from "./DialogModal";
+
 // TODO: Continue working on settings
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
 const PomodoroTimer = () => {
@@ -121,6 +123,12 @@ const PomodoroTimer = () => {
     }
   };
 
+  const [isOpened, setIsOpened] = useState(false);
+
+  const onProceed = () => {
+    console.log("Proceed clicked");
+  };
+
   const styles = {
     p: { color: "white", fontSize: "6.25rem" },
     div: { height: "2.25rem" },
@@ -161,9 +169,55 @@ const PomodoroTimer = () => {
         </Circle3>
       </CirclesContainer>
       <GearIconContainer>
-        <GearIcon />
+        <GearIcon onClick={() => setIsOpened(true)} />
       </GearIconContainer>
-      {/* <SettingsModal display={true} /> */}
+
+      {/* Dialog Modal */}
+      <DialogModal
+        title="Dialog modal example"
+        isOpened={isOpened}
+        onProceed={onProceed}
+        onClose={() => setIsOpened(false)}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "33.75rem",
+              height: "30.625rem",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "purple",
+            }}
+          >
+            <p>a bunch</p>
+            <p>of random</p>
+            <p>TEXT</p>
+            <button
+              type="button"
+              onClick={() => {
+                onProceed();
+                setIsOpened(false);
+              }}
+            >
+              Proceed
+            </button>
+            <button type="button" onClick={() => setIsOpened(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      </DialogModal>
     </TimerContentContainer>
   );
 };
@@ -193,25 +247,5 @@ const OptMenu = (props: Options) => (
     </HighlightBubble>
   </OptionsMenu>
 );
-
-const SettingsModal = ({ display }: { display: boolean }) => {
-  return (
-    <_SettingsModal display={display}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "33.75rem",
-          height: "30.625rem",
-          // position: "relative",
-          background: AppTheme.lightColors.shade2,
-          fontSize: "4rem",
-        }}
-      >
-        HELLLOO
-      </div>
-    </_SettingsModal>
-  );
-};
 
 export default PomodoroTimer;
