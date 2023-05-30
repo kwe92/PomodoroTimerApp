@@ -95,6 +95,7 @@ const GearIcon = styled(IoMdSettings)`
   width: 1.75rem;
   height: 1.75rem;
   color: ${theme.lightColors.shade0};
+  cursor: pointer;
 `;
 
 const TimerText = styled.p`
@@ -103,6 +104,16 @@ const TimerText = styled.p`
   letter-spacing: 0.9375rem;
   color: rgba(215, 224, 255, 1);
   cursor: pointer;
+`;
+
+const SettingsModal = styled(Column)<{ display: boolean }>`
+  width: 100%;
+  height: 80%;
+  position: absolute;
+  z-index: 1;
+  // justify-content: start;
+  display: ${(props) => (props.display ? "inline" : "none")};
+  background: rgba(22, 25, 50, 0.725);
 `;
 
 export {
@@ -118,4 +129,5 @@ export {
   CirclesContainer,
   CircularProgressbarContainer,
   TimerText,
+  SettingsModal,
 };
