@@ -20,6 +20,7 @@ import {
 import AppTheme from "../../styles/theme/AppTheme";
 import DialogModal from "./DialogModal";
 import OptMenu from "../options_menu/OptMenu";
+import CircularProgress from "../circular_progress/CircularProgress";
 
 // TODO: Continue working on settings
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
@@ -151,16 +152,7 @@ const PomodoroTimer = () => {
         <Circle1 id="c1" />
         <Circle2 />
         <Circle3>
-          <CircularProgressbarContainer>
-            {/* refactor: pathColor to be useContext or observable state from settings */}
-            <CircularProgressbar
-              value={pctTimeRemaining}
-              strokeWidth={3}
-              styles={buildStyles({
-                pathColor: AppTheme.otherColors.red0,
-              })}
-            />
-          </CircularProgressbarContainer>
+          <CircularProgress pctTimeRemaining={pctTimeRemaining} />
           <p style={styles.p}>{`${minutes}:${
             seconds < 10 ? `0${seconds}` : seconds
           }`}</p>
