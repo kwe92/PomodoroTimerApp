@@ -17,6 +17,7 @@ import {
 import OptMenu from "../options_menu/OptMenu";
 import CircularProgress from "../circular_progress/CircularProgress";
 import ModalPopUp from "../modal_popup/ModalPopUp";
+import Circles from "../circles/Circles";
 
 // TODO: Continue working on settings
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
@@ -144,18 +145,14 @@ const PomodoroTimer = () => {
     <TimerContentContainer>
       <Title>pomodoro</Title>
       <OptMenu options={options} />
-      <CirclesContainer>
-        <Circle1 id="c1" />
-        <Circle2 />
-        <Circle3>
-          <CircularProgress pctTimeRemaining={pctTimeRemaining} />
-          <p style={styles.p}>{`${minutes}:${
-            seconds < 10 ? `0${seconds}` : seconds
-          }`}</p>
-          <div style={styles.div} />
-          <TimerText onClick={handleTimerText}>{timerText}</TimerText>
-        </Circle3>
-      </CirclesContainer>
+      <Circles
+        pctTimeRemaining={pctTimeRemaining}
+        styles={styles}
+        minutes={minutes}
+        seconds={seconds}
+        handleTimerText={handleTimerText}
+        timerText={timerText}
+      />
       <GearIconContainer>
         <GearIcon onClick={() => setIsOpened(true)} />
       </GearIconContainer>
