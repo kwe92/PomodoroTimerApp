@@ -5,17 +5,12 @@ import { useTimer } from "react-timer-hook";
 import {
   TimerContentContainer,
   Title,
-  Circle1,
-  Circle2,
-  Circle3,
   GearIcon,
-  CirclesContainer,
-  TimerText,
   GearIconContainer,
   SettingsModal as _SettingsModal,
 } from "./timerStyles";
 import OptMenu from "../options_menu/OptMenu";
-import CircularProgress from "../circular_progress/CircularProgress";
+import CircularProgress from "../circles/CircularProgress";
 import ModalPopUp from "../modal_popup/ModalPopUp";
 import Circles from "../circles/Circles";
 
