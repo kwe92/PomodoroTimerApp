@@ -1,5 +1,10 @@
 import DialogModal from "./DialogModal";
-import { CrossIcon } from "./ModalPopUpStyles";
+import {
+  CrossIcon,
+  ModalBackDrop,
+  SettingsContainer,
+  TopSection,
+} from "./ModalPopUpStyles";
 
 interface Props {
   isOpened: boolean;
@@ -8,6 +13,13 @@ interface Props {
 }
 
 export default function ModalPopUp(props: Props) {
+  const close = () => {
+    props.setIsOpened(false);
+  };
+  const proceed = () => {
+    props.onProceed();
+    props.setIsOpened(false);
+  };
   return (
     <DialogModal
       title="Dialog modal example"
@@ -16,51 +28,17 @@ export default function ModalPopUp(props: Props) {
       onClose={props.setIsOpened}
     >
       {/* Modal Content */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          height: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "33.75rem",
-            height: "30.625rem",
-            background: "purple",
-            borderRadius: "25px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+      <ModalBackDrop>
+        <SettingsContainer>
+          <TopSection>
             <h1>Setting</h1>
-            <CrossIcon
-              onClick={() => {
-                props.setIsOpened(false);
-              }}
-            />
-          </div>
-          <button
-            type="button"
-            onClick={() => {
-              props.onProceed();
-              props.setIsOpened(false);
-            }}
-          >
+            <CrossIcon onClick={close} />
+          </TopSection>
+          <button type="button" onClick={proceed}>
             Apply
           </button>
-        </div>
-      </div>
+        </SettingsContainer>
+      </ModalBackDrop>
     </DialogModal>
   );
 }
