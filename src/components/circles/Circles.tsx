@@ -1,11 +1,11 @@
-import CircularProgress from "../circular_progress/CircularProgress";
+import CircularProgress from "./CircularProgress";
 import {
   Circle1,
   Circle2,
   Circle3,
   CirclesContainer,
   TimerText,
-} from "../timer/timerStyles";
+} from "../circles/CirclesStyles";
 
 interface Props {
   pctTimeRemaining: number;
