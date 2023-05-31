@@ -99,15 +99,6 @@ const GearIcon = styled(IoMdSettings)`
   cursor: pointer;
 `;
 
-const CrossIcon = styled(RxCross2)`
-  width: 1.75rem;
-  height: 1.75rem;
-  color: ${theme.lightColors.shade0};
-  cursor: pointer;
-`;
-
-RxCross2;
-
 const TimerText = styled.p`
   position: relative;
   font-size: 1rem;
@@ -140,5 +131,4 @@ export {
   CircularProgressbarContainer,
   TimerText,
   SettingsModal,
-  CrossIcon,
 };
