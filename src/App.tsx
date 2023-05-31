@@ -6,8 +6,8 @@ import { AppContentContainer } from "./AppStyles";
 import AppTitle from "./components/title/Title";
 import OptMenu from "./components/options_menu/OptMenu";
 import Circles from "./components/circles/Circles";
-import ModalPopUp from "./components/modal_popup/ModalPopUp";
 import SettingsIcon from "./components/settings_icon/SettingsIcon";
+import SettingsMenu from "./components/settings/SettingsMenu";
 
 // TODO: Continue working on settings
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
@@ -145,7 +145,7 @@ export default function App() {
       />
 
       {/* Dialog Modal */}
-      <ModalPopUp
+      <SettingsMenu
         isOpened={isOpened}
         onProceed={onProceed}
         setIsOpened={setIsOpened}
