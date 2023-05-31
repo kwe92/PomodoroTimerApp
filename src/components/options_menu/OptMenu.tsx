@@ -1,4 +1,4 @@
-import { HighlightBubble, OptionsMenu } from "../timer/timerStyles";
+import { HighlightBubble, OptionsMenu } from "./OptMenuStyles";
 
 export default function OptMenu(props: Options) {
   return (
