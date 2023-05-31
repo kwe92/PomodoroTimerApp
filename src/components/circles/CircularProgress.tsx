@@ -9,8 +9,6 @@ interface Props {
 export default function CircularProgress(props: Props) {
   return (
     <CircularProgressbarContainer>
-      {/* refactor: pathColor to be useContext or observable state 
-from settings */}
       <CircularProgressbar
         value={props.pctTimeRemaining}
         strokeWidth={3}
