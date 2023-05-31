@@ -4,10 +4,8 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useTimer } from "react-timer-hook";
 import {
-  OptionsMenu,
   TimerContentContainer,
   Title,
-  HighlightBubble,
   Circle1,
   Circle2,
   Circle3,
@@ -21,6 +19,7 @@ import {
 } from "./timerStyles";
 import AppTheme from "../../styles/theme/AppTheme";
 import DialogModal from "./DialogModal";
+import OptMenu from "../options_menu/OptMenu";
 
 // TODO: Continue working on settings
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
@@ -226,31 +225,5 @@ const PomodoroTimer = () => {
     </TimerContentContainer>
   );
 };
-
-const OptMenu = (props: Options) => (
-  <OptionsMenu id="options-menu">
-    <HighlightBubble
-      id="bubble"
-      display={props.options.pomodoroOption}
-      onClick={props.options.handlePomodoroOption}
-    >
-      <p>pomodoro</p>
-    </HighlightBubble>
-
-    <HighlightBubble
-      id="bubble"
-      display={props.options.shortBreakOption}
-      onClick={props.options.handleShortBreakOption}
-    >
-      <p>short break</p>
-    </HighlightBubble>
-    <HighlightBubble
-      display={props.options.longBreakOption}
-      onClick={props.options.handleLongBreakOption}
-    >
-      <p>long break</p>
-    </HighlightBubble>
-  </OptionsMenu>
-);
 
 export default PomodoroTimer;
