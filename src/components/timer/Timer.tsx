@@ -10,7 +10,6 @@ import {
   SettingsModal as _SettingsModal,
 } from "./timerStyles";
 import OptMenu from "../options_menu/OptMenu";
-import CircularProgress from "../circles/CircularProgress";
 import ModalPopUp from "../modal_popup/ModalPopUp";
 import Circles from "../circles/Circles";
 
