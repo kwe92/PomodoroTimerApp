@@ -17,6 +17,9 @@ interface Props {
 }
 
 export default function Circles(props: Props) {
+  const _handleTimerText = () => {
+    props.handleTimerText();
+  };
   return (
     <CirclesContainer>
       <Circle1 id="c1" />
@@ -27,13 +30,7 @@ export default function Circles(props: Props) {
           props.seconds < 10 ? `0${props.seconds}` : props.seconds
         }`}</p>
         <div style={props.styles.div} />
-        <TimerText
-          onClick={() => {
-            props.handleTimerText();
-          }}
-        >
-          {props.timerText}
-        </TimerText>
+        <TimerText onClick={_handleTimerText}>{props.timerText}</TimerText>
       </Circle3>
     </CirclesContainer>
   );
