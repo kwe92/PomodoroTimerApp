@@ -1,26 +1,17 @@
-import React, { Children, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TimerSettings } from "react-timer-hook";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useTimer } from "react-timer-hook";
 import {
-  OptionsMenu,
   TimerContentContainer,
   Title,
-  HighlightBubble,
-  Circle1,
-  Circle2,
-  Circle3,
   GearIcon,
-  CirclesContainer,
-  TimerText,
   GearIconContainer,
-  CircularProgressbarContainer,
   SettingsModal as _SettingsModal,
-  CrossIcon,
 } from "./timerStyles";
-import AppTheme from "../../styles/theme/AppTheme";
-import DialogModal from "./DialogModal";
+import OptMenu from "../options_menu/OptMenu";
+import ModalPopUp from "../modal_popup/ModalPopUp";
+import Circles from "../circles/Circles";
 
 // TODO: Continue working on settings
 // State Machine to solve for ["pomodoro", "short break", "long break"]??
@@ -51,6 +42,8 @@ const PomodoroTimer = () => {
     resume,
     restart,
   } = useTimer(timerSettings);
+
+  const [isOpened, setIsOpened] = useState(false);
 
   useEffect(() => {
     setTimer(new Date());
@@ -124,8 +117,6 @@ const PomodoroTimer = () => {
     }
   };
 
-  const [isOpened, setIsOpened] = useState(false);
-
   const onProceed = () => {
     console.log("Proceed clicked");
   };
@@ -148,109 +139,26 @@ const PomodoroTimer = () => {
     <TimerContentContainer>
       <Title>pomodoro</Title>
       <OptMenu options={options} />
-      <CirclesContainer>
-        <Circle1 id="c1" />
-        <Circle2 />
-        <Circle3>
-          <CircularProgressbarContainer>
-            {/* refactor: pathColor to be useContext or observable state from settings */}
-            <CircularProgressbar
-              value={pctTimeRemaining}
-              strokeWidth={3}
-              styles={buildStyles({
-                pathColor: AppTheme.otherColors.red0,
-              })}
-            />
-          </CircularProgressbarContainer>
-          <p style={styles.p}>{`${minutes}:${
-            seconds < 10 ? `0${seconds}` : seconds
-          }`}</p>
-          <div style={styles.div} />
-          <TimerText onClick={handleTimerText}>{timerText}</TimerText>
-        </Circle3>
-      </CirclesContainer>
+      <Circles
+        pctTimeRemaining={pctTimeRemaining}
+        styles={styles}
+        minutes={minutes}
+        seconds={seconds}
+        handleTimerText={handleTimerText}
+        timerText={timerText}
+      />
       <GearIconContainer>
         <GearIcon onClick={() => setIsOpened(true)} />
       </GearIconContainer>
 
       {/* Dialog Modal */}
-      <DialogModal
-        title="Dialog modal example"
+      <ModalPopUp
         isOpened={isOpened}
         onProceed={onProceed}
-        onClose={() => setIsOpened(false)}
-      >
-        {/* Modal Content */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-            height: "100%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "33.75rem",
-              height: "30.625rem",
-              background: "purple",
-              borderRadius: "25px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <h1>Setting</h1>
-              <CrossIcon onClick={() => setIsOpened(false)} />
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                onProceed();
-                setIsOpened(false);
-              }}
-            >
-              Apply
-            </button>
-          </div>
-        </div>
-      </DialogModal>
+        setIsOpened={setIsOpened}
+      />
     </TimerContentContainer>
   );
 };
-
-const OptMenu = (props: Options) => (
-  <OptionsMenu id="options-menu">
-    <HighlightBubble
-      id="bubble"
-      display={props.options.pomodoroOption}
-      onClick={props.options.handlePomodoroOption}
-    >
-      <p>pomodoro</p>
-    </HighlightBubble>
-
-    <HighlightBubble
-      id="bubble"
-      display={props.options.shortBreakOption}
-      onClick={props.options.handleShortBreakOption}
-    >
-      <p>short break</p>
-    </HighlightBubble>
-    <HighlightBubble
-      display={props.options.longBreakOption}
-      onClick={props.options.handleLongBreakOption}
-    >
-      <p>long break</p>
-    </HighlightBubble>
-  </OptionsMenu>
-);
 
 export default PomodoroTimer;
