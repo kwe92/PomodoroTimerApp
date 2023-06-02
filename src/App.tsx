@@ -8,16 +8,27 @@ import OptMenu from "./components/options_menu/OptMenu";
 import Circles from "./components/circles/Circles";
 import SettingsIcon from "./components/settings_icon/SettingsIcon";
 import SettingsMenu from "./components/settings/SettingsMenu";
+import OptionsStore from "./stores/options/OptionsStore";
+import { observer } from "mobx-react";
+import TimeStore from "./stores/time/timeStore";
 
-// TODO: Continue working on settings
-// State Machine to solve for ["pomodoro", "short break", "long break"]??
-export default function App() {
-  const [pomodoroOption, setPomodoroOption] = useState(true);
-  const [shortBreakOption, setShortBreakOption] = useState(false);
-  const [longBreakOption, setLongBreakOption] = useState(false);
-  const [pomodoro, setPomodoro] = useState(16);
-  const [shortBreak, setShortBreak] = useState(5);
-  const [longBreak, setLongBreak] = useState(15);
+const optionsStore = OptionsStore.create({
+  options: {
+    pomodoroOption: true,
+    shortBreakOption: false,
+    longBreakOption: false,
+  },
+});
+
+const timeStore = TimeStore.create({
+  times: {
+    pomodoro: 16,
+    shortBreak: 5,
+    longBreak: 10,
+  },
+});
+
+export default observer(function App() {
   const [timer, setTimer] = useState(new Date());
   const [timerText, setTimerText] = useState("START");
   const [totalTime, setTotalTime] = useState(0);
@@ -43,10 +54,10 @@ export default function App() {
 
   useEffect(() => {
     setTimer(new Date());
-    timer.setSeconds(timer.getSeconds() + (60 * pomodoro) / 2);
-    setTotalTime(60 * pomodoro);
+    timer.setSeconds(timer.getSeconds() + (60 * timeStore.times.pomodoro) / 2);
+    setTotalTime(60 * timeStore.times.pomodoro);
     restart(timer, false);
-  }, [pomodoro]);
+  }, [timeStore.times.pomodoro]);
 
   let timeRemaining = minutes * 60 + seconds;
   let pctTimeRemaining = (timeRemaining / totalTime) * 100;
@@ -65,40 +76,35 @@ export default function App() {
   };
 
   const handlePomodoroOption = () => {
-    handleSwitchOption(pomodoro);
-    setTotalTime(60 * pomodoro);
-    if (pomodoroOption) {
+    handleSwitchOption(timeStore.times.pomodoro);
+    setTotalTime(60 * timeStore.times.pomodoro);
+
+    if (optionsStore.options.pomodoroOption) {
       return;
     } else {
-      setPomodoroOption(true);
-      setShortBreakOption(false);
-      setLongBreakOption(false);
+      optionsStore.options.setPomodoroOption();
     }
   };
 
   const handleShortBreakOption = () => {
-    handleSwitchOption(shortBreak);
-    setTotalTime(60 * shortBreak);
+    handleSwitchOption(timeStore.times.shortBreak);
+    setTotalTime(60 * timeStore.times.shortBreak);
 
-    if (shortBreakOption) {
+    if (optionsStore.options.shortBreakOption) {
       return;
     } else {
-      setPomodoroOption(false);
-      setShortBreakOption(true);
-      setLongBreakOption(false);
+      optionsStore.options.setShortBreakOption();
     }
   };
 
   const handleLongBreakOption = () => {
-    handleSwitchOption(longBreak);
-    setTotalTime(60 * longBreak);
+    handleSwitchOption(timeStore.times.longBreak);
+    setTotalTime(60 * timeStore.times.longBreak);
 
-    if (longBreakOption) {
+    if (optionsStore.options.longBreakOption) {
       return;
     } else {
-      setPomodoroOption(false);
-      setShortBreakOption(false);
-      setLongBreakOption(true);
+      optionsStore.options.setLongBreakOption();
     }
   };
 
@@ -123,11 +129,11 @@ export default function App() {
   };
 
   const options = {
-    pomodoroOption: pomodoroOption,
+    pomodoroOption: optionsStore.options.pomodoroOption,
     handlePomodoroOption: handlePomodoroOption,
-    shortBreakOption: shortBreakOption,
+    shortBreakOption: optionsStore.options.shortBreakOption,
     handleShortBreakOption: handleShortBreakOption,
-    longBreakOption: longBreakOption,
+    longBreakOption: optionsStore.options.longBreakOption,
     handleLongBreakOption: handleLongBreakOption,
   };
 
@@ -153,4 +159,4 @@ export default function App() {
       <SettingsIcon setIsOpened={setIsOpened} />
     </AppContentContainer>
   );
-}
+});
