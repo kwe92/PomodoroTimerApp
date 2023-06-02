@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "react-circular-progressbar/dist/styles.css";
 import { AppContentContainer } from "./AppStyles";
 import AppTitle from "./components/title/Title";
@@ -18,12 +18,11 @@ export default observer(function App() {
     timerModel,
     totalTimeModel,
     timerTextModel,
+    isOpenModel,
   } = useStores();
   const { seconds, minutes, pause, resume, restart } = timerModel.useTimer(
     dateModel.timer
   );
-  const [isOpened, setIsOpened] = useState(false);
-
   const opt = {
     timeStore: timeStore,
     optionsStore: optionsStore,
@@ -61,11 +60,6 @@ export default observer(function App() {
     console.log("Proceed clicked");
   };
 
-  const styles = {
-    p: { color: "white", fontSize: "6.25rem" },
-    div: { height: "2.25rem" },
-  };
-
   const options = {
     pomodoroOption: optionsStore.options.pomodoroOption,
     handlePomodoroOption: optMenuHandles.handlePomodoroOption,
@@ -81,7 +75,6 @@ export default observer(function App() {
       <OptMenu options={options} />
       <Circles
         pctTimeRemaining={pctTimeRemaining}
-        styles={styles}
         minutes={minutes}
         seconds={seconds}
         handleTimerText={handleTimerText}
@@ -90,11 +83,11 @@ export default observer(function App() {
 
       {/* Dialog Modal */}
       <SettingsMenu
-        isOpened={isOpened}
+        isOpened={isOpenModel.isOpened}
         onProceed={onProceed}
-        setIsOpened={setIsOpened}
+        setIsOpened={isOpenModel.setIsOpened}
       />
-      <SettingsIcon setIsOpened={setIsOpened} />
+      <SettingsIcon setIsOpened={isOpenModel.setIsOpened} />
     </AppContentContainer>
   );
 });
