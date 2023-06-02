@@ -1,6 +1,6 @@
 import IsOpenModel from "./is_opened/IsOpenedModel";
 import OptionsStore from "./options/OptionsStore";
-import TimeStore from "./time/TimeStore";
+import TimeStore from "./time/timeStore";
 import DateModel from "./timer/DateModel";
 import TimerModel from "./timer/TimerModel";
 import TotalTimeModel from "./timer/TotalTimeModel";
