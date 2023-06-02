@@ -8,27 +8,11 @@ import OptMenu from "./components/options_menu/OptMenu";
 import Circles from "./components/circles/Circles";
 import SettingsIcon from "./components/settings_icon/SettingsIcon";
 import SettingsMenu from "./components/settings/SettingsMenu";
-import OptionsStore from "./stores/options/OptionsStore";
 import { observer } from "mobx-react";
-import TimeStore from "./stores/time/timeStore";
-
-const optionsStore = OptionsStore.create({
-  options: {
-    pomodoroOption: true,
-    shortBreakOption: false,
-    longBreakOption: false,
-  },
-});
-
-const timeStore = TimeStore.create({
-  times: {
-    pomodoro: 16,
-    shortBreak: 5,
-    longBreak: 10,
-  },
-});
+import useStores from "./stores/Stores";
 
 export default observer(function App() {
+  const { optionsStore, timeStore } = useStores();
   const [timer, setTimer] = useState(new Date());
   const [timerText, setTimerText] = useState("START");
   const [totalTime, setTotalTime] = useState(0);
