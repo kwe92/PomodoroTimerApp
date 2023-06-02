@@ -1,4 +1,3 @@
-// OptMenuHandles
 interface OptsInterface {
   dateModel: any;
   timeStore: any;
