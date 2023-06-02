@@ -12,6 +12,8 @@ interface ThemeInterface {
         shade0: "rgba(215,224,255,1)",
         shade1: "rgba(239,241,250,1)",
         shade2: "rgba(255,255,255,1)",
+        settings: "rgba(216, 216, 216, 1)",
+
       },
       otherColors: {
         purple0: "rgba(216,129,248,1)",
