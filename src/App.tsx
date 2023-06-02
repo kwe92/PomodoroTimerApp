@@ -38,7 +38,7 @@ export default observer(function App() {
   useEffect(() => {
     dateModel.setTimer(new Date());
     dateModel.timer.setSeconds(
-      dateModel.timer.getSeconds() + (60 * timeStore.times.pomodoro) / 2
+      dateModel.timer.getSeconds() + 60 * timeStore.times.pomodoro
     );
     totalTimeModel.setTotalTime(60 * timeStore.times.pomodoro);
     restart(dateModel.timer, false);
