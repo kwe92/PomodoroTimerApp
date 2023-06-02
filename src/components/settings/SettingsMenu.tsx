@@ -1,9 +1,21 @@
 import DialogModal from "../modal_popup/DialogModal";
+import CustomizedMenus from "./SelectTimeDropDown";
 import {
   CrossIcon,
   ModalBackDrop,
   SettingsContainer,
   TopSection,
+  HorizontalLine,
+  BottomSection,
+  SettingsTimerOptions,
+  SetTimerDropDown,
+  FontSettings,
+  OptionsContainer,
+  FontCircle,
+  ColorSettings,
+  RedCircle,
+  BlueCircle,
+  PurpleCircle,
 } from "./SettingsMenuStyles";
 
 interface Props {
@@ -34,9 +46,39 @@ export default function SettingsMenu(props: Props) {
             <h1>Setting</h1>
             <CrossIcon onClick={close} />
           </TopSection>
-          <button type="button" onClick={proceed}>
+          <HorizontalLine />
+          <BottomSection>
+            <p style={{ color: "black" }}>T I M E ( M I N U T E S )</p>
+            <SettingsTimerOptions>
+              <SetTimerDropDown />
+              <SetTimerDropDown />
+              <SetTimerDropDown />
+            </SettingsTimerOptions>
+            <HorizontalLine />
+            <FontSettings>
+              <h4>FONT</h4>
+              <OptionsContainer>
+                <FontCircle>
+                  <p style={{ color: "white" }}>Aa</p>
+                </FontCircle>
+                <p>Aa</p>
+                <p>Aa</p>
+              </OptionsContainer>
+            </FontSettings>
+            <HorizontalLine />
+            <ColorSettings>
+              <h4>COLOR</h4>
+              <OptionsContainer>
+                <RedCircle></RedCircle>
+                <BlueCircle></BlueCircle>
+                <PurpleCircle></PurpleCircle>
+              </OptionsContainer>
+            </ColorSettings>
+          </BottomSection>
+
+          {/* <button type="button" onClick={proceed}>
             Apply
-          </button>
+          </button> */}
         </SettingsContainer>
       </ModalBackDrop>
     </DialogModal>
