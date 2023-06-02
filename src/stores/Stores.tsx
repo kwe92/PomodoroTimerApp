@@ -3,7 +3,7 @@ import TimeStore from "./time/TimeStore";
 import DateModel from "./timer/DateModel";
 import TimerModel from "./timer/TimerModel";
 import TotalTimeModel from "./timer/TotalTimeModel";
-import TimerTextModel from "./timer_text/TimerText";
+import TimerTextModel from "./timer_text/TimerTextModel";
 
 const optionsStore = OptionsStore.create({
   options: {
