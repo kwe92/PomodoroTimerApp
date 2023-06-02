@@ -3,6 +3,7 @@ import TimeStore from "./time/TimeStore";
 import DateModel from "./timer/DateModel";
 import TimerModel from "./timer/TimerModel";
 import TotalTimeModel from "./timer/TotalTimeModel";
+import TimerTextModel from "./timer_text/TimerText";
 
 const optionsStore = OptionsStore.create({
   options: {
@@ -29,6 +30,8 @@ const timerModel = TimerModel.create({
 
 const totalTimeModel = TotalTimeModel.create({ totalTime: 0 });
 
+const timerTextModel = TimerTextModel.create({ timerText: "START" });
+
 export default function useStores() {
   return {
     optionsStore: optionsStore,
@@ -36,5 +39,6 @@ export default function useStores() {
     dateModel: dateModel,
     timerModel: timerModel,
     totalTimeModel: totalTimeModel,
+    timerTextModel: timerTextModel,
   };
 }
