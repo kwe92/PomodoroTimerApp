@@ -1,3 +1,4 @@
+import IsOpenModel from "./is_opened/IsOpenedModel";
 import OptionsStore from "./options/OptionsStore";
 import TimeStore from "./time/TimeStore";
 import DateModel from "./timer/DateModel";
@@ -32,6 +33,8 @@ const totalTimeModel = TotalTimeModel.create({ totalTime: 0 });
 
 const timerTextModel = TimerTextModel.create({ timerText: "START" });
 
+const isOpenModel = IsOpenModel.create({ isOpened: false });
+
 export default function useStores() {
   return {
     optionsStore: optionsStore,
@@ -40,5 +43,6 @@ export default function useStores() {
     timerModel: timerModel,
     totalTimeModel: totalTimeModel,
     timerTextModel: timerTextModel,
+    isOpenModel: isOpenModel,
   };
 }
