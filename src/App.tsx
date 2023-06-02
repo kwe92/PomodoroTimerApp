@@ -11,23 +11,31 @@ import useStores from "./stores/Stores";
 import OptMenuHandles from "./components/options_menu/OptMenuHandles";
 
 export default observer(function App() {
-  const { optionsStore, timeStore, dateModel, timerModel, totalTimeModel } =
-    useStores();
+  const {
+    optionsStore,
+    timeStore,
+    dateModel,
+    timerModel,
+    totalTimeModel,
+    timerTextModel,
+  } = useStores();
   const { seconds, minutes, pause, resume, restart } = timerModel.useTimer(
     dateModel.timer
   );
-  const [timerText, setTimerText] = useState("START");
   const [isOpened, setIsOpened] = useState(false);
 
-  const optMenuHandles = new OptMenuHandles({
-    timeStore,
-    optionsStore,
-    dateModel,
-    pause,
-    restart,
-    setTimerText,
-    totalTimeModel,
-  });
+  const opt = {
+    timeStore: timeStore,
+    optionsStore: optionsStore,
+    dateModel: dateModel,
+    pause: pause,
+    restart: restart,
+    timerTextModel: timerTextModel,
+    totalTimeModel: totalTimeModel,
+  };
+
+  const optMenuHandles = new OptMenuHandles(opt);
+
   useEffect(() => {
     dateModel.setTimer(new Date());
     dateModel.timer.setSeconds(
@@ -35,7 +43,7 @@ export default observer(function App() {
     );
     totalTimeModel.setTotalTime(60 * timeStore.times.pomodoro);
     restart(dateModel.timer, false);
-  }, [timeStore.times.pomodoro]);
+  }, []);
 
   let timeRemaining = minutes * 60 + seconds;
   let pctTimeRemaining = (timeRemaining / totalTimeModel.totalTime) * 100;
@@ -46,14 +54,7 @@ export default observer(function App() {
   }
 
   const handleTimerText = () => {
-    if (timerText == "START") {
-      setTimerText("PAUSE");
-      resume();
-      return;
-    } else {
-      setTimerText("START");
-      pause();
-    }
+    timerTextModel.handleTimerText({ resume, pause });
   };
 
   const onProceed = () => {
@@ -84,7 +85,7 @@ export default observer(function App() {
         minutes={minutes}
         seconds={seconds}
         handleTimerText={handleTimerText}
-        timerText={timerText}
+        timerText={timerTextModel.timerText}
       />
 
       {/* Dialog Modal */}
