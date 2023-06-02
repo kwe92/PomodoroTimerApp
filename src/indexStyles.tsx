@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 interface Props {
-  fontFamily?: String;
+  fontFamily?: string;
   theme?: ThemeInterface;
   lightMode?: boolean;
 }

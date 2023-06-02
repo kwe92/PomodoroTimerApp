@@ -38,6 +38,15 @@ const Circle3 = styled(Column)`
   border-radius: ${21.1875 / 2}rem;
   border: 10px solid #f87070;
   position: absolute;
+
+  #timer {
+    color: white;
+    font-size: 6.25rem;
+  }
+
+  #circle-spacer {
+    height: 2.25rem;
+  }
 `;
 
 const CircularProgressbarContainer = styled(Column)`

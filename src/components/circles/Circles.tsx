@@ -9,7 +9,6 @@ import {
 
 interface Props {
   pctTimeRemaining: number;
-  styles: { p: Object; div: Object };
   minutes: number;
   seconds: number;
   handleTimerText: Function;
@@ -26,10 +25,10 @@ export default function Circles(props: Props) {
       <Circle2 />
       <Circle3>
         <CircularProgress pctTimeRemaining={props.pctTimeRemaining} />
-        <p style={props.styles.p}>{`${props.minutes}:${
+        <p id="timer">{`${props.minutes}:${
           props.seconds < 10 ? `0${props.seconds}` : props.seconds
         }`}</p>
-        <div style={props.styles.div} />
+        <div id="circle-spacer" />
         <TimerText onClick={_handleTimerText}>{props.timerText}</TimerText>
       </Circle3>
     </CirclesContainer>

@@ -1,134 +1,72 @@
-import React, { useEffect, useState } from "react";
-import { TimerSettings } from "react-timer-hook";
+import React, { useEffect } from "react";
 import "react-circular-progressbar/dist/styles.css";
-import { useTimer } from "react-timer-hook";
 import { AppContentContainer } from "./AppStyles";
 import AppTitle from "./components/title/Title";
 import OptMenu from "./components/options_menu/OptMenu";
 import Circles from "./components/circles/Circles";
 import SettingsIcon from "./components/settings_icon/SettingsIcon";
 import SettingsMenu from "./components/settings/SettingsMenu";
+import { observer } from "mobx-react";
+import useStores from "./stores/Stores";
+import OptMenuHandles from "./components/options_menu/OptMenuHandles";
 
-// TODO: Continue working on settings
-// State Machine to solve for ["pomodoro", "short break", "long break"]??
-export default function App() {
-  const [pomodoroOption, setPomodoroOption] = useState(true);
-  const [shortBreakOption, setShortBreakOption] = useState(false);
-  const [longBreakOption, setLongBreakOption] = useState(false);
-  const [pomodoro, setPomodoro] = useState(16);
-  const [shortBreak, setShortBreak] = useState(5);
-  const [longBreak, setLongBreak] = useState(15);
-  const [timer, setTimer] = useState(new Date());
-  const [timerText, setTimerText] = useState("START");
-  const [totalTime, setTotalTime] = useState(0);
-
-  const timerSettings: TimerSettings = {
-    autoStart: false,
-    expiryTimestamp: timer,
-    onExpire: () => console.warn("onExpire called"),
-  };
+export default observer(function App() {
   const {
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer(timerSettings);
+    optionsStore,
+    timeStore,
+    dateModel,
+    timerModel,
+    totalTimeModel,
+    timerTextModel,
+    isOpenModel,
+  } = useStores();
+  const { seconds, minutes, pause, resume, restart } = timerModel.useTimer(
+    dateModel.timer
+  );
+  const opt = {
+    timeStore: timeStore,
+    optionsStore: optionsStore,
+    dateModel: dateModel,
+    pause: pause,
+    restart: restart,
+    timerTextModel: timerTextModel,
+    totalTimeModel: totalTimeModel,
+  };
 
-  const [isOpened, setIsOpened] = useState(false);
+  const optMenuHandles = new OptMenuHandles(opt);
 
   useEffect(() => {
-    setTimer(new Date());
-    timer.setSeconds(timer.getSeconds() + (60 * pomodoro) / 2);
-    setTotalTime(60 * pomodoro);
-    restart(timer, false);
-  }, [pomodoro]);
+    dateModel.setTimer(new Date());
+    dateModel.timer.setSeconds(
+      dateModel.timer.getSeconds() + (60 * timeStore.times.pomodoro) / 2
+    );
+    totalTimeModel.setTotalTime(60 * timeStore.times.pomodoro);
+    restart(dateModel.timer, false);
+  }, []);
 
   let timeRemaining = minutes * 60 + seconds;
-  let pctTimeRemaining = (timeRemaining / totalTime) * 100;
+  let pctTimeRemaining = (timeRemaining / totalTimeModel.totalTime) * 100;
 
   // TODO: expand on this if statement to sound an alarm when the timer reaches 0
   if (timeRemaining == 0) {
     console.log("TIME ELAPSED!!!");
   }
 
-  const handleSwitchOption = (time: number) => {
-    pause();
-    setTimer(new Date());
-    timer.setSeconds(timer.getSeconds() + 60 * time);
-    restart(timer, false);
-    setTimerText("START");
-  };
-
-  const handlePomodoroOption = () => {
-    handleSwitchOption(pomodoro);
-    setTotalTime(60 * pomodoro);
-    if (pomodoroOption) {
-      return;
-    } else {
-      setPomodoroOption(true);
-      setShortBreakOption(false);
-      setLongBreakOption(false);
-    }
-  };
-
-  const handleShortBreakOption = () => {
-    handleSwitchOption(shortBreak);
-    setTotalTime(60 * shortBreak);
-
-    if (shortBreakOption) {
-      return;
-    } else {
-      setPomodoroOption(false);
-      setShortBreakOption(true);
-      setLongBreakOption(false);
-    }
-  };
-
-  const handleLongBreakOption = () => {
-    handleSwitchOption(longBreak);
-    setTotalTime(60 * longBreak);
-
-    if (longBreakOption) {
-      return;
-    } else {
-      setPomodoroOption(false);
-      setShortBreakOption(false);
-      setLongBreakOption(true);
-    }
-  };
-
   const handleTimerText = () => {
-    if (timerText == "START") {
-      setTimerText("PAUSE");
-      resume();
-      return;
-    } else {
-      setTimerText("START");
-      pause();
-    }
+    timerTextModel.handleTimerText({ resume, pause });
   };
 
   const onProceed = () => {
     console.log("Proceed clicked");
   };
 
-  const styles = {
-    p: { color: "white", fontSize: "6.25rem" },
-    div: { height: "2.25rem" },
-  };
-
   const options = {
-    pomodoroOption: pomodoroOption,
-    handlePomodoroOption: handlePomodoroOption,
-    shortBreakOption: shortBreakOption,
-    handleShortBreakOption: handleShortBreakOption,
-    longBreakOption: longBreakOption,
-    handleLongBreakOption: handleLongBreakOption,
+    pomodoroOption: optionsStore.options.pomodoroOption,
+    handlePomodoroOption: optMenuHandles.handlePomodoroOption,
+    shortBreakOption: optionsStore.options.shortBreakOption,
+    handleShortBreakOption: optMenuHandles.handleShortBreakOption,
+    longBreakOption: optionsStore.options.longBreakOption,
+    handleLongBreakOption: optMenuHandles.handleLongBreakOption,
   };
 
   return (
@@ -137,20 +75,19 @@ export default function App() {
       <OptMenu options={options} />
       <Circles
         pctTimeRemaining={pctTimeRemaining}
-        styles={styles}
         minutes={minutes}
         seconds={seconds}
         handleTimerText={handleTimerText}
-        timerText={timerText}
+        timerText={timerTextModel.timerText}
       />
 
       {/* Dialog Modal */}
       <SettingsMenu
-        isOpened={isOpened}
+        isOpened={isOpenModel.isOpened}
         onProceed={onProceed}
-        setIsOpened={setIsOpened}
+        setIsOpened={isOpenModel.setIsOpened}
       />
-      <SettingsIcon setIsOpened={setIsOpened} />
+      <SettingsIcon setIsOpened={isOpenModel.setIsOpened} />
     </AppContentContainer>
   );
-}
+});
