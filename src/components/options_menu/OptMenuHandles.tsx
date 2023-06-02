@@ -5,7 +5,7 @@ interface OptsInterface {
   optionsStore: any;
   pause: VoidFunction;
   restart: (timer: Date, autoStart: boolean) => void;
-  setTimerText: Function;
+  timerTextModel: any;
   totalTimeModel: any;
 }
 
@@ -15,7 +15,7 @@ export default class OptMenuHandles {
   optionsStore: any;
   pause: VoidFunction;
   restart: (timer: Date, autoStart: boolean) => void;
-  setTimerText: Function;
+  setTimerText: any;
   setTotalTime: any;
 
   constructor({
@@ -24,16 +24,16 @@ export default class OptMenuHandles {
     dateModel,
     pause,
     restart,
-    setTimerText,
     totalTimeModel,
+    timerTextModel,
   }: OptsInterface) {
     this.dateModel = dateModel;
     this.timeStore = timeStore;
     this.optionsStore = optionsStore;
     this.pause = pause;
     this.restart = restart;
-    this.setTimerText = setTimerText;
     this.setTotalTime = totalTimeModel.setTotalTime;
+    this.setTimerText = timerTextModel.setTimerText;
   }
   private _switchOption(time: number) {
     this.pause();
