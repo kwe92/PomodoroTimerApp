@@ -1,5 +1,8 @@
+import ColorSettingsModel from "./color_settings/ColorSettingsModel";
+import FontSettingsModel from "./font_settings/FontSettingsModel";
 import IsOpenModel from "./is_opened/IsOpenedModel";
 import OptionsStore from "./options/OptionsStore";
+import SettingsModel from "./settings/SettingsModel";
 import TimeStore from "./time/timeStore";
 import DateModel from "./timer/DateModel";
 import TimerModel from "./timer/TimerModel";
@@ -35,7 +38,24 @@ const timerTextModel = TimerTextModel.create({ timerText: "START" });
 
 const isOpenModel = IsOpenModel.create({ isOpened: false });
 
-export default function useStores() {
+const fontSettingModel = FontSettingsModel.create({
+  font1: true,
+  font2: false,
+  font3: false,
+});
+
+const colorSettingsModel = ColorSettingsModel.create({
+  isRed: true,
+  isBlue: false,
+  isPurple: false,
+});
+
+const settingsModel = SettingsModel.create({
+  fontSettings: fontSettingModel,
+  ColorSettings: colorSettingsModel,
+});
+
+export default function Stores() {
   return {
     optionsStore: optionsStore,
     timeStore: timeStore,
@@ -44,5 +64,6 @@ export default function useStores() {
     totalTimeModel: totalTimeModel,
     timerTextModel: timerTextModel,
     isOpenModel: isOpenModel,
+    settingsModel: settingsModel,
   };
 }
