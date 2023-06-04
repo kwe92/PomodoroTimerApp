@@ -11,21 +11,28 @@ import {
   FontSettings,
   OptionsContainer,
   FontCircle,
-  ColorSettings,
+  ColorSettings as ColorSettingsEle,
   RedCircle,
   BlueCircle,
   PurpleCircle,
+  CheckIcon,
 } from "./SettingsMenuStyles";
 import { observer } from "mobx-react";
+import Stores from "../../stores/Stores";
+import AppTheme from "../../styles/theme/AppTheme";
 
 interface Props {
   isOpened: boolean;
   onProceed: VoidFunction;
   setIsOpened: (x: boolean) => void;
-  settingsModel: any;
+  // settingsModel: any;
 }
 
 export default observer(function SettingsMenu(props: Props) {
+  const { settingsModel, currentColorModel } = Stores();
+  const { fontSettings, colorSettings } = settingsModel;
+  const setCurrentColor = currentColorModel.setCurrentColor;
+
   const close = () => {
     props.setIsOpened(false);
   };
@@ -33,7 +40,7 @@ export default observer(function SettingsMenu(props: Props) {
     props.onProceed();
     props.setIsOpened(false);
   };
-  const { font1, font2, font3 } = props.settingsModel.fontSettings;
+  const { font1, font2, font3 } = fontSettings;
 
   return (
     <DialogModal
@@ -64,7 +71,7 @@ export default observer(function SettingsMenu(props: Props) {
                 <FontCircle
                   isselected={`${font1}`}
                   onClick={() => {
-                    props.settingsModel.fontSettings.setFont1();
+                    fontSettings.setFont1();
                   }}
                 >
                   <p>Aa</p>
@@ -72,7 +79,7 @@ export default observer(function SettingsMenu(props: Props) {
                 <FontCircle
                   isselected={font2.toString()}
                   onClick={() => {
-                    props.settingsModel.fontSettings.setFont2();
+                    fontSettings.setFont2();
                   }}
                 >
                   <p>Aa</p>
@@ -80,7 +87,7 @@ export default observer(function SettingsMenu(props: Props) {
                 <FontCircle
                   isselected={font3.toString()}
                   onClick={() => {
-                    props.settingsModel.fontSettings.setFont3();
+                    fontSettings.setFont3();
                   }}
                 >
                   <p>Aa</p>
@@ -88,14 +95,35 @@ export default observer(function SettingsMenu(props: Props) {
               </OptionsContainer>
             </FontSettings>
             <HorizontalLine />
-            <ColorSettings>
+            <ColorSettingsEle>
               <h4>COLOR</h4>
               <OptionsContainer>
-                <RedCircle></RedCircle>
-                <BlueCircle></BlueCircle>
-                <PurpleCircle></PurpleCircle>
+                <RedCircle
+                  onClick={() => {
+                    colorSettings.setIsRed();
+                    setCurrentColor(AppTheme.otherColors.red0);
+                  }}
+                >
+                  <CheckIcon displayon={colorSettings.isRed.toString()} />
+                </RedCircle>
+                <BlueCircle
+                  onClick={() => {
+                    colorSettings.setIsBlue();
+                    setCurrentColor(AppTheme.otherColors.blue0);
+                  }}
+                >
+                  <CheckIcon displayon={colorSettings.isBlue.toString()} />
+                </BlueCircle>
+                <PurpleCircle
+                  onClick={() => {
+                    colorSettings.setIsPurple();
+                    setCurrentColor(AppTheme.otherColors.purple0);
+                  }}
+                >
+                  <CheckIcon displayon={colorSettings.isPurple.toString()} />
+                </PurpleCircle>
               </OptionsContainer>
-            </ColorSettings>
+            </ColorSettingsEle>
           </BottomSection>
 
           {/* <button type="button" onClick={proceed}>
