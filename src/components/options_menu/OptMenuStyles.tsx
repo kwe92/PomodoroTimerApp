@@ -15,13 +15,16 @@ const OptionsMenu = styled(Row)`
   }
 `;
 // TODO Needs work
-const HighlightBubble = styled(Row)<{ display: boolean }>`
+const HighlightBubble = styled(Row)<{
+  display: boolean;
+  currentColor: CurrentColor;
+}>`
   width: 7.5rem;
   height: 3rem;
   border-radius: 3.125rem;
   cursor: pointer;
   background: ${(props) =>
-    props.display ? AppTheme.otherColors.red0 : AppTheme.darkColors.shade0};
+    props.display ? props.currentColor : AppTheme.darkColors.shade0};
 `;
 
 export { OptionsMenu, HighlightBubble };
