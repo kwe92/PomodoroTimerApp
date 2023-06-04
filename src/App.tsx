@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import "react-circular-progressbar/dist/styles.css";
 import { AppContentContainer } from "./AppStyles";
 import AppTitle from "./components/title/Title";
@@ -9,10 +9,11 @@ import SettingsMenu from "./components/settings/SettingsMenu";
 import { observer } from "mobx-react";
 import Stores from "./stores/Stores";
 import OptMenuHandles from "./components/options_menu/OptMenuHandles";
-
-const stores = Stores();
+import AppGlobalTheme from "./indexStyles";
+import AppTheme from "./styles/theme/AppTheme";
 
 export default observer(function App() {
+  const stores = Stores();
   const { seconds, minutes, pause, resume, restart } =
     stores.timerModel.useTimer(stores.dateModel.timer);
   const opt = {
@@ -63,25 +64,27 @@ export default observer(function App() {
   };
 
   return (
-    <AppContentContainer>
-      <AppTitle title="pomodoro" />
-      <OptMenu options={options} />
-      <Circles
-        pctTimeRemaining={pctTimeRemaining}
-        minutes={minutes}
-        seconds={seconds}
-        handleTimerText={handleTimerText}
-        timerText={stores.timerTextModel.timerText}
-      />
+    <Fragment>
+      <AppGlobalTheme theme={AppTheme} />
+      <AppContentContainer>
+        <AppTitle title="pomodoro" />
+        <OptMenu options={options} />
+        <Circles
+          pctTimeRemaining={pctTimeRemaining}
+          minutes={minutes}
+          seconds={seconds}
+          handleTimerText={handleTimerText}
+          timerText={stores.timerTextModel.timerText}
+        />
 
-      {/* Dialog Modal */}
-      <SettingsMenu
-        isOpened={stores.isOpenModel.isOpened}
-        onProceed={onProceed}
-        setIsOpened={stores.isOpenModel.setIsOpened}
-        settingsModel={stores.settingsModel}
-      />
-      <SettingsIcon setIsOpened={stores.isOpenModel.setIsOpened} />
-    </AppContentContainer>
+        {/* Dialog Modal */}
+        <SettingsMenu
+          isOpened={stores.isOpenModel.isOpened}
+          onProceed={onProceed}
+          setIsOpened={stores.isOpenModel.setIsOpened}
+        />
+        <SettingsIcon setIsOpened={stores.isOpenModel.setIsOpened} />
+      </AppContentContainer>
+    </Fragment>
   );
 });
