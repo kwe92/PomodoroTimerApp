@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { RxCross2 } from "react-icons/rx";
 import AppTheme from "../../styles/theme/AppTheme";
 import { Column, Row } from "../../styles/layout/Flex";
+import { BsCheckLg } from "react-icons/bs";
 
 const CrossIcon = styled(RxCross2)`
   width: 1.75rem;
@@ -107,6 +108,14 @@ const BlueCircle = styled(FontCircle)`
 const PurpleCircle = styled(FontCircle)`
   background: ${AppTheme.otherColors.purple0};
 `;
+
+interface BsCheckProps {
+  displayon: string;
+}
+const CheckIcon = styled(BsCheckLg)<BsCheckProps>`
+  display: ${(props) => (props.displayon == "true" ? "inline" : "none")};
+  color: black;
+`;
 export {
   CrossIcon,
   ModalBackDrop,
@@ -123,4 +132,5 @@ export {
   RedCircle,
   BlueCircle,
   PurpleCircle,
+  CheckIcon,
 };
