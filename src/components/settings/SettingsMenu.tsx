@@ -1,5 +1,4 @@
 import DialogModal from "../modal_popup/DialogModal";
-import CustomizedMenus from "./SelectTimeDropDown";
 import {
   CrossIcon,
   ModalBackDrop,
@@ -17,14 +16,16 @@ import {
   BlueCircle,
   PurpleCircle,
 } from "./SettingsMenuStyles";
+import { observer } from "mobx-react";
 
 interface Props {
   isOpened: boolean;
   onProceed: VoidFunction;
   setIsOpened: (x: boolean) => void;
+  settingsModel: any;
 }
 
-export default function SettingsMenu(props: Props) {
+export default observer(function SettingsMenu(props: Props) {
   const close = () => {
     props.setIsOpened(false);
   };
@@ -32,9 +33,11 @@ export default function SettingsMenu(props: Props) {
     props.onProceed();
     props.setIsOpened(false);
   };
+  const { font1, font2, font3 } = props.settingsModel.fontSettings;
+
   return (
     <DialogModal
-      title="Dialog modal example"
+      title="Dialog modal"
       isOpened={props.isOpened}
       onProceed={props.onProceed}
       onClose={props.setIsOpened}
@@ -58,11 +61,30 @@ export default function SettingsMenu(props: Props) {
             <FontSettings>
               <h4>FONT</h4>
               <OptionsContainer>
-                <FontCircle>
-                  <p style={{ color: "white" }}>Aa</p>
+                <FontCircle
+                  isselected={`${font1}`}
+                  onClick={() => {
+                    props.settingsModel.fontSettings.setFont1();
+                  }}
+                >
+                  <p>Aa</p>
                 </FontCircle>
-                <p>Aa</p>
-                <p>Aa</p>
+                <FontCircle
+                  isselected={font2.toString()}
+                  onClick={() => {
+                    props.settingsModel.fontSettings.setFont2();
+                  }}
+                >
+                  <p>Aa</p>
+                </FontCircle>
+                <FontCircle
+                  isselected={font3.toString()}
+                  onClick={() => {
+                    props.settingsModel.fontSettings.setFont3();
+                  }}
+                >
+                  <p>Aa</p>
+                </FontCircle>
               </OptionsContainer>
             </FontSettings>
             <HorizontalLine />
@@ -83,4 +105,4 @@ export default function SettingsMenu(props: Props) {
       </ModalBackDrop>
     </DialogModal>
   );
-}
+});
