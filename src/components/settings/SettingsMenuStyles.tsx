@@ -76,11 +76,17 @@ const OptionsContainer = styled(Row)`
   justify-content: space-between;
 `;
 
-const FontCircle = styled(Column)`
+interface FontCircleInterface {
+  isselected?: string;
+}
+
+const FontCircle = styled(Column)<FontCircleInterface>`
   width: 2.5rem;
   height: 2.5rem;
-  background: black;
+  background: ${(props) =>
+    props.isselected == "true" ? "black" : "rgba(239,244,250,1)"};
   border-radius: 1.25rem;
+  color: ${(props) => (props.isselected == "true" ? "white" : "black")};
 `;
 
 const ColorSettings = styled(Row)`
