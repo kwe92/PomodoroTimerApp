@@ -33,3 +33,8 @@ interface Options {
 }
 
 type SetState<T> = Dispatch<SetStateAction<T>>;
+
+type CurrentColor =
+  | "rgba(216,129,248,1)"
+  | "rgba(112,243,248,1)"
+  | "rgba(248,112,112,1)";
