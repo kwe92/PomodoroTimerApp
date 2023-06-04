@@ -1,4 +1,6 @@
+import AppTheme from "../styles/theme/AppTheme";
 import ColorSettingsModel from "./color_settings/ColorSettingsModel";
+import CurrentColorModel from "./current_color/CurrentColorModel";
 import FontSettingsModel from "./font_settings/FontSettingsModel";
 import IsOpenModel from "./is_opened/IsOpenedModel";
 import OptionsStore from "./options/OptionsStore";
@@ -52,7 +54,11 @@ const colorSettingsModel = ColorSettingsModel.create({
 
 const settingsModel = SettingsModel.create({
   fontSettings: fontSettingModel,
-  ColorSettings: colorSettingsModel,
+  colorSettings: colorSettingsModel,
+});
+
+const currentColorModel = CurrentColorModel.create({
+  currentColor: AppTheme.otherColors.red0,
 });
 
 export default function Stores() {
@@ -65,5 +71,6 @@ export default function Stores() {
     timerTextModel: timerTextModel,
     isOpenModel: isOpenModel,
     settingsModel: settingsModel,
+    currentColorModel: currentColorModel,
   };
 }
