@@ -4,7 +4,7 @@ import ColorSettingsModel from "../color_settings/ColorSettingsModel";
 
 const SettingsModel = types.model({
   fontSettings: FontSettingsModel,
-  ColorSettings: ColorSettingsModel,
+  colorSettings: ColorSettingsModel,
 });
 
 export default SettingsModel;
