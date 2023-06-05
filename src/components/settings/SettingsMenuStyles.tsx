@@ -50,20 +50,6 @@ const BottomSection = styled(Column)`
   align-items: start;
 `;
 
-const SettingsTimerOptions = styled(Row)`
-  width: 100%;
-  height: 4.375rem;
-  background: rgba(156, 192, 231, 1);
-  margin-top: 1.5rem;
-  justify-content: space-between;
-`;
-
-const SetTimerDropDown = styled.div`
-  width: 8.75rem;
-  height: 100%;
-  background: rgba(184, 94, 87, 1);
-`;
-
 const FontSettings = styled(Row)`
   width: 100%;
   height: 2.5rem;
@@ -132,6 +118,48 @@ const ApplyButton = styled.button<ApplyButtonProps>`
   font-size: 1rem;
   color: white;
 `;
+
+const SettingsTimerOptions = styled(Row)`
+  width: 100%;
+  height: 4.375rem;
+  background: rgba(156, 192, 231, 1);
+  margin-top: 1.5rem;
+  justify-content: space-between;
+`;
+
+const SetTimerDropDown = styled.ul`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: start;
+  justify-content: start;
+  width: 8.75rem;
+  height: 100%;
+  background: rgba(184, 94, 87, 1);
+  z-index: 1;
+`;
+
+const SetTimerDropDownOptions = styled.li`
+  display: flex;
+  flex-direction: column;
+  width: 8.75rem;
+  position: absolute;
+  background: purple;
+  top: 4.375rem;
+  color: black;
+  border-radius: 1.25rem;
+`;
+
+const SetTimerListTile = styled(Row)<{ currentColor: CurrentColor }>`
+  align-items: start;
+  justify-content: start;
+  padding: 0.5rem 0.375rem;
+  cursor: pointer;
+  &:hover {
+    color: ${(props) => props.currentColor};
+  }
+`;
+
 export {
   CrossIcon,
   ModalBackDrop,
@@ -150,4 +178,6 @@ export {
   PurpleCircle,
   CheckIcon,
   ApplyButton,
+  SetTimerDropDownOptions,
+  SetTimerListTile,
 };
