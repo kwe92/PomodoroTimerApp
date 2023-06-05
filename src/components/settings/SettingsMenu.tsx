@@ -7,7 +7,7 @@ import {
   HorizontalLine,
   BottomSection,
   SettingsTimerOptions,
-  SetTimerDropDown,
+  SetTimerDropDown as SetTimerDropDownContainer,
   FontSettings,
   OptionsContainer,
   FontCircle,
@@ -17,10 +17,17 @@ import {
   PurpleCircle,
   CheckIcon,
   ApplyButton,
+  SetTimerDropDownOptions,
+  SetTimerListTile,
 } from "./SettingsMenuStyles";
 import { observer } from "mobx-react";
 import Stores from "../../stores/Stores";
 import AppTheme from "../../styles/theme/AppTheme";
+import CustomizedMenus from "./SelectTimeDropDown";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { FC, Fragment } from "react";
 
 interface Props {
   isOpened: boolean;
@@ -64,9 +71,94 @@ export default observer(function SettingsMenu(props: Props) {
           <BottomSection>
             <p style={{ color: "black" }}>T I M E ( M I N U T E S )</p>
             <SettingsTimerOptions>
-              <SetTimerDropDown />
-              <SetTimerDropDown />
-              <SetTimerDropDown />
+              <SetTimerDropDownContainer>
+                <p>pomodoro</p>
+                <div
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    background: "rgba(239,241,250,1)",
+                    padding: "0.0625rem 0.625rem",
+                  }}
+                >
+                  <p style={{ color: "black" }}>25</p>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      color: "rgba(187,189,203,1)",
+                    }}
+                  >
+                    <KeyboardArrowUpIcon />
+                    <KeyboardArrowDownIcon />
+                  </div>
+                </div>
+
+                <TimerDropdownOptions
+                  currentColor={currentColor as CurrentColor}
+                />
+              </SetTimerDropDownContainer>
+              <SetTimerDropDownContainer>
+                <p>short break</p>
+                <div
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    background: "rgba(239,241,250,1)",
+                    padding: "0.0625rem 0.625rem",
+                  }}
+                >
+                  <p style={{ color: "black" }}>25</p>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      color: "rgba(187,189,203,1)",
+                    }}
+                  >
+                    <KeyboardArrowUpIcon />
+                    <KeyboardArrowDownIcon />
+                  </div>
+                </div>
+                <TimerDropdownOptions
+                  currentColor={currentColor as CurrentColor}
+                />
+              </SetTimerDropDownContainer>
+              <SetTimerDropDownContainer>
+                <p>long</p>
+                <div
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    background: "rgba(239,241,250,1)",
+                    padding: "0.0625rem 0.625rem",
+                  }}
+                >
+                  <p style={{ color: "black" }}>25</p>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      color: "rgba(187,189,203,1)",
+                    }}
+                  >
+                    <KeyboardArrowUpIcon />
+                    <KeyboardArrowDownIcon />
+                  </div>
+                </div>
+                <TimerDropdownOptions
+                  currentColor={currentColor as CurrentColor}
+                />
+              </SetTimerDropDownContainer>
             </SettingsTimerOptions>
             <HorizontalLine />
             <FontSettings>
@@ -158,3 +250,53 @@ export default observer(function SettingsMenu(props: Props) {
     </DialogModal>
   );
 });
+
+// TODO: Add Props to TimerDropdownOptions
+// interface Props {
+// currentTimer: number;
+// setCurrentTimer: Function;
+// }
+const TimerDropdownOptions = ({
+  currentColor,
+}: {
+  currentColor: CurrentColor;
+  currentTimer?: number;
+  setCurrentTimer?: Function;
+}) => {
+  return (
+    <SetTimerDropDownOptions>
+      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+        <AccessTimeIcon />
+        <p>15</p>
+      </SetTimerListTile>
+      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+        <AccessTimeIcon />
+        <p>20</p>
+      </SetTimerListTile>
+      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+        <AccessTimeIcon />
+        <p>25</p>
+      </SetTimerListTile>
+      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+        <AccessTimeIcon />
+        <p>30</p>
+      </SetTimerListTile>
+      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+        <AccessTimeIcon />
+        <p>45</p>
+      </SetTimerListTile>
+      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+        <AccessTimeIcon />
+        <p>52</p>
+      </SetTimerListTile>
+      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+        <AccessTimeIcon />
+        <p>60</p>
+      </SetTimerListTile>
+    </SetTimerDropDownOptions>
+  );
+};
+
+// const TimerListTile = () => {
+//   return
+// };
