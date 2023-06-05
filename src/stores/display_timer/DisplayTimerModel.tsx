@@ -16,6 +16,11 @@ const DisplayTimerOptionsModel = types
     displayLongBreak() {
       self.longBreakTimerOptions = !self.longBreakTimerOptions;
     },
+    closeAllTimerOptions() {
+      self.pomodoroTimerOptions = false;
+      self.shortBreakTimerOptions = false;
+      self.longBreakTimerOptions = false;
+    },
   }));
 
 export default DisplayTimerOptionsModel;
