@@ -4,6 +4,7 @@ interface Props {
   fontFamily?: string;
   theme?: ThemeInterface;
   lightMode?: boolean;
+  currentFont: CurrentFont;
 }
 
 const AppGlobalTheme = createGlobalStyle<Props>`
@@ -11,11 +12,12 @@ const AppGlobalTheme = createGlobalStyle<Props>`
     margin:0;
     padding:0;
     box-sizing: border-box;
+    font-family: ${(props) => props.currentFont};
+
 }
 
 body{
     background: ${(props) => props.theme.darkColors.shade1};
-    font-family: 'Kumbh Sans', sans-serif;
 }
 
 li{
