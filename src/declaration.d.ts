@@ -38,3 +38,5 @@ type CurrentColor =
   | "rgba(216,129,248,1)"
   | "rgba(112,243,248,1)"
   | "rgba(248,112,112,1)";
+
+  type CurrentFont = "'Kumbh Sans', sans-serif" | "'Roboto Slab', serif" | "'Space Mono', monospace";
