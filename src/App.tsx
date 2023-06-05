@@ -65,7 +65,10 @@ export default observer(function App() {
 
   return (
     <Fragment>
-      <AppGlobalTheme theme={AppTheme} />
+      <AppGlobalTheme
+        theme={AppTheme}
+        currentFont={stores.currentFontModel.currentFont as CurrentFont}
+      />
       <AppContentContainer>
         <AppTitle title="pomodoro" />
         <OptMenu options={options} />
