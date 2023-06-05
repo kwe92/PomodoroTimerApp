@@ -16,6 +16,7 @@ import {
   BlueCircle,
   PurpleCircle,
   CheckIcon,
+  ApplyButton,
 } from "./SettingsMenuStyles";
 import { observer } from "mobx-react";
 import Stores from "../../stores/Stores";
@@ -31,7 +32,7 @@ interface Props {
 export default observer(function SettingsMenu(props: Props) {
   const { settingsModel, currentColorModel } = Stores();
   const { fontSettings, colorSettings } = settingsModel;
-  const setCurrentColor = currentColorModel.setCurrentColor;
+  const { currentColor, setCurrentColor } = currentColorModel;
 
   const close = () => {
     props.setIsOpened(false);
@@ -41,6 +42,8 @@ export default observer(function SettingsMenu(props: Props) {
     props.setIsOpened(false);
   };
   const { font1, font2, font3 } = fontSettings;
+  const { isRed, isBlue, isPurple, setIsRed, setIsBlue, setIsPurple } =
+    colorSettings;
 
   return (
     <DialogModal
@@ -100,27 +103,24 @@ export default observer(function SettingsMenu(props: Props) {
               <OptionsContainer>
                 <RedCircle
                   onClick={() => {
-                    colorSettings.setIsRed();
-                    setCurrentColor(AppTheme.otherColors.red0);
+                    setIsRed();
                   }}
                 >
-                  <CheckIcon displayon={colorSettings.isRed.toString()} />
+                  <CheckIcon displayon={isRed.toString()} />
                 </RedCircle>
                 <BlueCircle
                   onClick={() => {
-                    colorSettings.setIsBlue();
-                    setCurrentColor(AppTheme.otherColors.blue0);
+                    setIsBlue();
                   }}
                 >
-                  <CheckIcon displayon={colorSettings.isBlue.toString()} />
+                  <CheckIcon displayon={isBlue.toString()} />
                 </BlueCircle>
                 <PurpleCircle
                   onClick={() => {
-                    colorSettings.setIsPurple();
-                    setCurrentColor(AppTheme.otherColors.purple0);
+                    setIsPurple();
                   }}
                 >
-                  <CheckIcon displayon={colorSettings.isPurple.toString()} />
+                  <CheckIcon displayon={isPurple.toString()} />
                 </PurpleCircle>
               </OptionsContainer>
             </ColorSettingsEle>
@@ -129,6 +129,20 @@ export default observer(function SettingsMenu(props: Props) {
           {/* <button type="button" onClick={proceed}>
             Apply
           </button> */}
+          <ApplyButton
+            type="button"
+            currentColor={currentColor as CurrentColor}
+            onClick={() => {
+              close();
+              return isRed
+                ? setCurrentColor(AppTheme.otherColors.red0)
+                : isBlue
+                ? setCurrentColor(AppTheme.otherColors.blue0)
+                : setCurrentColor(AppTheme.otherColors.purple0);
+            }}
+          >
+            <p>Apply</p>
+          </ApplyButton>
         </SettingsContainer>
       </ModalBackDrop>
     </DialogModal>
