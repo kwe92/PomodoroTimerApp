@@ -35,7 +35,7 @@ export default observer(function App() {
     );
     stores.totalTimeModel.setTotalTime(60 * stores.timeStore.times.pomodoro);
     restart(stores.dateModel.timer, false);
-  }, []);
+  }, [stores.timeStore.times.pomodoro]);
 
   let timeRemaining = minutes * 60 + seconds;
   let pctTimeRemaining =
