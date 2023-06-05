@@ -13,7 +13,7 @@ const isClickInsideRectangle = (e: MouseEvent, element: HTMLElement) => {
 };
 
 interface Props {
-  title: string;
+  title?: string;
   isOpened: boolean;
   onProceed: () => void;
   onClose: (x: boolean) => void;
