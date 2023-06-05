@@ -30,10 +30,11 @@ interface Props {
 }
 
 export default observer(function SettingsMenu(props: Props) {
-  const { settingsModel, currentColorModel } = Stores();
+  const { settingsModel, currentColorModel, currentFontModel } = Stores();
   const { fontSettings, colorSettings } = settingsModel;
   const { currentColor, setCurrentColor } = currentColorModel;
-
+  const { isSans, isMono, isSlab, setSans, setMono, setSlab, setFont } =
+    currentFontModel;
   const close = () => {
     props.setIsOpened(false);
   };
@@ -75,25 +76,28 @@ export default observer(function SettingsMenu(props: Props) {
                   isselected={`${font1}`}
                   onClick={() => {
                     fontSettings.setFont1();
+                    setSans();
                   }}
                 >
-                  <p>Aa</p>
+                  <p style={{ fontFamily: "'Kumbh Sans', sans-serif" }}>Aa</p>
                 </FontCircle>
                 <FontCircle
                   isselected={font2.toString()}
                   onClick={() => {
                     fontSettings.setFont2();
+                    setSlab();
                   }}
                 >
-                  <p>Aa</p>
+                  <p style={{ fontFamily: "'Roboto Slab', serif" }}>Aa</p>
                 </FontCircle>
                 <FontCircle
                   isselected={font3.toString()}
                   onClick={() => {
                     fontSettings.setFont3();
+                    setMono();
                   }}
                 >
-                  <p>Aa</p>
+                  <p style={{ fontFamily: "'Space Mono', monospace" }}>Aa</p>
                 </FontCircle>
               </OptionsContainer>
             </FontSettings>
@@ -134,6 +138,12 @@ export default observer(function SettingsMenu(props: Props) {
             currentColor={currentColor as CurrentColor}
             onClick={() => {
               close();
+
+              isSans
+                ? setFont("'Kumbh Sans', sans-serif")
+                : isSlab
+                ? setFont("'Roboto Slab', serif")
+                : setFont("'Space Mono', monospace");
               return isRed
                 ? setCurrentColor(AppTheme.otherColors.red0)
                 : isBlue
