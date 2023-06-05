@@ -12,6 +12,8 @@ interface ThemeInterface {
         shade0: "rgba(215,224,255,1)",
         shade1: "rgba(239,241,250,1)",
         shade2: "rgba(255,255,255,1)",
+        settings: "rgba(216, 216, 216, 1)",
+
       },
       otherColors: {
         purple0: "rgba(216,129,248,1)",
@@ -31,3 +33,10 @@ interface Options {
 }
 
 type SetState<T> = Dispatch<SetStateAction<T>>;
+
+type CurrentColor =
+  | "rgba(216,129,248,1)"
+  | "rgba(112,243,248,1)"
+  | "rgba(248,112,112,1)";
+
+  type CurrentFont = "'Kumbh Sans', sans-serif" | "'Roboto Slab', serif" | "'Space Mono', monospace";

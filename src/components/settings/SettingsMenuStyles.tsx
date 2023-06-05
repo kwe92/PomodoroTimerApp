@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { RxCross2 } from "react-icons/rx";
 import AppTheme from "../../styles/theme/AppTheme";
-import { Column } from "../../styles/layout/Flex";
+import { Column, Row } from "../../styles/layout/Flex";
+import { BsCheckLg } from "react-icons/bs";
 
 const CrossIcon = styled(RxCross2)`
   width: 1.75rem;
   height: 1.75rem;
-  color: ${AppTheme.lightColors.shade0};
+  color: ${AppTheme.darkColors.shade1};
   cursor: pointer;
 `;
 
@@ -15,6 +16,7 @@ const ModalBackDrop = styled(Column)`
   height: 100%;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 
 const SettingsContainer = styled.div`
@@ -22,13 +24,130 @@ const SettingsContainer = styled.div`
   flex-direction: column;
   width: 33.75rem;
   height: 30.625rem;
-  background: purple;
+  background: ${AppTheme.lightColors.shade2};
   border-radius: 25px;
 `;
 
 const TopSection = styled.div`
   display: flex;
   align-items: center;
+  color: black;
+  justify-content: space-between;
+  padding-top: 2.125rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+`;
+
+const HorizontalLine = styled.div`
+  width: 100%;
+  height: 0.0625rem;
+  background: rgba(227, 225, 225, 1);
+  margin: 1.5rem 0;
+`;
+
+const BottomSection = styled(Column)`
+  padding: 0 2.5rem;
+  align-items: start;
+`;
+
+const SettingsTimerOptions = styled(Row)`
+  width: 100%;
+  height: 4.375rem;
+  background: rgba(156, 192, 231, 1);
+  margin-top: 1.5rem;
   justify-content: space-between;
 `;
-export { CrossIcon, ModalBackDrop, SettingsContainer, TopSection };
+
+const SetTimerDropDown = styled.div`
+  width: 8.75rem;
+  height: 100%;
+  background: rgba(184, 94, 87, 1);
+`;
+
+const FontSettings = styled(Row)`
+  width: 100%;
+  height: 2.5rem;
+  justify-content: space-between;
+  color: black;
+`;
+
+const OptionsContainer = styled(Row)`
+  width: 9.5rem;
+  height: 100%;
+  justify-content: space-between;
+`;
+
+interface FontCircleInterface {
+  isselected?: string;
+}
+
+const FontCircle = styled(Column)<FontCircleInterface>`
+  width: 2.5rem;
+  height: 2.5rem;
+  background: ${(props) =>
+    props.isselected == "true" ? "black" : "rgba(239,244,250,1)"};
+  border-radius: 1.25rem;
+  color: ${(props) => (props.isselected == "true" ? "white" : "black")};
+`;
+
+const ColorSettings = styled(Row)`
+  width: 100%;
+  height: 2.5rem;
+  justify-content: space-between;
+  color: black;
+`;
+
+const RedCircle = styled(FontCircle)`
+  background: ${AppTheme.otherColors.red0};
+`;
+
+const BlueCircle = styled(FontCircle)`
+  background: ${AppTheme.otherColors.blue0};
+`;
+
+const PurpleCircle = styled(FontCircle)`
+  background: ${AppTheme.otherColors.purple0};
+`;
+
+interface BsCheckProps {
+  displayon: string;
+}
+const CheckIcon = styled(BsCheckLg)<BsCheckProps>`
+  display: ${(props) => (props.displayon == "true" ? "inline" : "none")};
+  color: black;
+`;
+
+interface ApplyButtonProps {
+  currentColor: CurrentColor;
+}
+const ApplyButton = styled.button<ApplyButtonProps>`
+  position: relative;
+  top: 3.125rem;
+  left: 12.5rem;
+  width: 8.75rem;
+  height: 3.375rem;
+  background: ${(props) => props.currentColor};
+  border: none;
+  border-radius: ${8.75 / 2}rem;
+  font-size: 1rem;
+  color: white;
+`;
+export {
+  CrossIcon,
+  ModalBackDrop,
+  SettingsContainer,
+  TopSection,
+  HorizontalLine,
+  BottomSection,
+  SettingsTimerOptions,
+  SetTimerDropDown,
+  FontSettings,
+  OptionsContainer,
+  FontCircle,
+  ColorSettings,
+  RedCircle,
+  BlueCircle,
+  PurpleCircle,
+  CheckIcon,
+  ApplyButton,
+};

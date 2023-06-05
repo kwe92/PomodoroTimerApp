@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import "react-circular-progressbar/dist/styles.css";
 import { AppContentContainer } from "./AppStyles";
 import AppTitle from "./components/title/Title";
@@ -7,45 +7,39 @@ import Circles from "./components/circles/Circles";
 import SettingsIcon from "./components/settings_icon/SettingsIcon";
 import SettingsMenu from "./components/settings/SettingsMenu";
 import { observer } from "mobx-react";
-import useStores from "./stores/Stores";
+import Stores from "./stores/Stores";
 import OptMenuHandles from "./components/options_menu/OptMenuHandles";
+import AppGlobalTheme from "./indexStyles";
+import AppTheme from "./styles/theme/AppTheme";
 
 export default observer(function App() {
-  const {
-    optionsStore,
-    timeStore,
-    dateModel,
-    timerModel,
-    totalTimeModel,
-    timerTextModel,
-    isOpenModel,
-  } = useStores();
-  const { seconds, minutes, pause, resume, restart } = timerModel.useTimer(
-    dateModel.timer
-  );
+  const stores = Stores();
+  const { seconds, minutes, pause, resume, restart } =
+    stores.timerModel.useTimer(stores.dateModel.timer);
   const opt = {
-    timeStore: timeStore,
-    optionsStore: optionsStore,
-    dateModel: dateModel,
+    timeStore: stores.timeStore,
+    optionsStore: stores.optionsStore,
+    dateModel: stores.dateModel,
     pause: pause,
     restart: restart,
-    timerTextModel: timerTextModel,
-    totalTimeModel: totalTimeModel,
+    timerTextModel: stores.timerTextModel,
+    totalTimeModel: stores.totalTimeModel,
   };
 
   const optMenuHandles = new OptMenuHandles(opt);
 
   useEffect(() => {
-    dateModel.setTimer(new Date());
-    dateModel.timer.setSeconds(
-      dateModel.timer.getSeconds() + 60 * timeStore.times.pomodoro
+    stores.dateModel.setTimer(new Date());
+    stores.dateModel.timer.setSeconds(
+      stores.dateModel.timer.getSeconds() + 60 * stores.timeStore.times.pomodoro
     );
-    totalTimeModel.setTotalTime(60 * timeStore.times.pomodoro);
-    restart(dateModel.timer, false);
+    stores.totalTimeModel.setTotalTime(60 * stores.timeStore.times.pomodoro);
+    restart(stores.dateModel.timer, false);
   }, []);
 
   let timeRemaining = minutes * 60 + seconds;
-  let pctTimeRemaining = (timeRemaining / totalTimeModel.totalTime) * 100;
+  let pctTimeRemaining =
+    (timeRemaining / stores.totalTimeModel.totalTime) * 100;
 
   // TODO: expand on this if statement to sound an alarm when the timer reaches 0
   if (timeRemaining == 0) {
@@ -53,7 +47,7 @@ export default observer(function App() {
   }
 
   const handleTimerText = () => {
-    timerTextModel.handleTimerText({ resume, pause });
+    stores.timerTextModel.handleTimerText({ resume, pause });
   };
 
   const onProceed = () => {
@@ -61,33 +55,39 @@ export default observer(function App() {
   };
 
   const options = {
-    pomodoroOption: optionsStore.options.pomodoroOption,
+    pomodoroOption: stores.optionsStore.options.pomodoroOption,
     handlePomodoroOption: optMenuHandles.handlePomodoroOption,
-    shortBreakOption: optionsStore.options.shortBreakOption,
+    shortBreakOption: stores.optionsStore.options.shortBreakOption,
     handleShortBreakOption: optMenuHandles.handleShortBreakOption,
-    longBreakOption: optionsStore.options.longBreakOption,
+    longBreakOption: stores.optionsStore.options.longBreakOption,
     handleLongBreakOption: optMenuHandles.handleLongBreakOption,
   };
 
   return (
-    <AppContentContainer>
-      <AppTitle title="pomodoro" />
-      <OptMenu options={options} />
-      <Circles
-        pctTimeRemaining={pctTimeRemaining}
-        minutes={minutes}
-        seconds={seconds}
-        handleTimerText={handleTimerText}
-        timerText={timerTextModel.timerText}
+    <Fragment>
+      <AppGlobalTheme
+        theme={AppTheme}
+        currentFont={stores.currentFontModel.currentFont as CurrentFont}
       />
+      <AppContentContainer>
+        <AppTitle title="pomodoro" />
+        <OptMenu options={options} />
+        <Circles
+          pctTimeRemaining={pctTimeRemaining}
+          minutes={minutes}
+          seconds={seconds}
+          handleTimerText={handleTimerText}
+          timerText={stores.timerTextModel.timerText}
+        />
 
-      {/* Dialog Modal */}
-      <SettingsMenu
-        isOpened={isOpenModel.isOpened}
-        onProceed={onProceed}
-        setIsOpened={isOpenModel.setIsOpened}
-      />
-      <SettingsIcon setIsOpened={isOpenModel.setIsOpened} />
-    </AppContentContainer>
+        {/* Dialog Modal */}
+        <SettingsMenu
+          isOpened={stores.isOpenModel.isOpened}
+          onProceed={onProceed}
+          setIsOpened={stores.isOpenModel.setIsOpened}
+        />
+        <SettingsIcon setIsOpened={stores.isOpenModel.setIsOpened} />
+      </AppContentContainer>
+    </Fragment>
   );
 });
