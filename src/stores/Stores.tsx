@@ -1,6 +1,7 @@
 import AppTheme from "../styles/theme/AppTheme";
 import ColorSettingsModel from "./color_settings/ColorSettingsModel";
 import CurrentColorModel from "./current_color/CurrentColorModel";
+import CurrentFontModel from "./current_font/CurrentFontModel";
 import FontSettingsModel from "./font_settings/FontSettingsModel";
 import IsOpenModel from "./is_opened/IsOpenedModel";
 import OptionsStore from "./options/OptionsStore";
@@ -61,6 +62,12 @@ const currentColorModel = CurrentColorModel.create({
   currentColor: AppTheme.otherColors.red0,
 });
 
+const currentFontModel = CurrentFontModel.create({
+  currentFont: "'Kumbh Sans', sans-serif",
+  isSans: true,
+  isMono: false,
+  isSlab: false,
+});
 export default function Stores() {
   return {
     optionsStore: optionsStore,
@@ -72,5 +79,6 @@ export default function Stores() {
     isOpenModel: isOpenModel,
     settingsModel: settingsModel,
     currentColorModel: currentColorModel,
+    currentFontModel: currentFontModel,
   };
 }
