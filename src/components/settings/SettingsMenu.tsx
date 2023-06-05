@@ -63,7 +63,6 @@ export default observer(function SettingsMenu(props: Props) {
 
   return (
     <DialogModal
-      title="Dialog modal"
       isOpened={props.isOpened}
       onProceed={props.onProceed}
       onClose={props.setIsOpened}
