@@ -2,6 +2,7 @@ import AppTheme from "../styles/theme/AppTheme";
 import ColorSettingsModel from "./color_settings/ColorSettingsModel";
 import CurrentColorModel from "./current_color/CurrentColorModel";
 import CurrentFontModel from "./current_font/CurrentFontModel";
+import DisplayTimerOptionsModel from "./display_timer/DisplayTimerModel";
 import FontSettingsModel from "./font_settings/FontSettingsModel";
 import IsOpenModel from "./is_opened/IsOpenedModel";
 import OptionsStore from "./options/OptionsStore";
@@ -68,6 +69,12 @@ const currentFontModel = CurrentFontModel.create({
   isMono: false,
   isSlab: false,
 });
+
+const dislayTimerOptionsModel = DisplayTimerOptionsModel.create({
+  pomodoroTimerOptions: false,
+  shortBreakTimerOptions: false,
+  longBreakTimerOptions: false,
+});
 export default function Stores() {
   return {
     optionsStore: optionsStore,
@@ -80,5 +87,6 @@ export default function Stores() {
     settingsModel: settingsModel,
     currentColorModel: currentColorModel,
     currentFontModel: currentFontModel,
+    dislayTimerOptionsModel: dislayTimerOptionsModel,
   };
 }
