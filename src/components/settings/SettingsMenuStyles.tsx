@@ -50,20 +50,6 @@ const BottomSection = styled(Column)`
   align-items: start;
 `;
 
-const SettingsTimerOptions = styled(Row)`
-  width: 100%;
-  height: 4.375rem;
-  background: rgba(156, 192, 231, 1);
-  margin-top: 1.5rem;
-  justify-content: space-between;
-`;
-
-const SetTimerDropDown = styled.div`
-  width: 8.75rem;
-  height: 100%;
-  background: rgba(184, 94, 87, 1);
-`;
-
 const FontSettings = styled(Row)`
   width: 100%;
   height: 2.5rem;
@@ -132,6 +118,63 @@ const ApplyButton = styled.button<ApplyButtonProps>`
   font-size: 1rem;
   color: white;
 `;
+
+const SettingsTimerOptions = styled(Row)`
+  width: 100%;
+  height: 4.375rem;
+  margin-top: 1.5rem;
+  justify-content: space-between;
+`;
+
+const SetTimerDropDown = styled.ul`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: start;
+  justify-content: start;
+  z-index: 1;
+  width: 8.75rem;
+  height: 100%;
+  #timer-title {
+    color: rgba(165, 166, 178, 1);
+  }
+`;
+
+const SetTimerListTile = styled(Row)<{ currentColor: CurrentColor }>`
+  align-items: start;
+  justify-content: start;
+  padding: 0.5rem 0.375rem;
+  cursor: pointer;
+  &:hover {
+    color: ${(props) => props.currentColor};
+  }
+`;
+
+const PickTimeIconListTile = styled(Row)`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(239, 241, 250, 1);
+  padding: 0.0625rem 0.625rem;
+  border-radius: 0.75rem;
+`;
+
+const ArrowIconContainer = styled(Column)`
+  align-items: center;
+  color: rgba(187, 189, 203, 1);
+`;
+
+const SetTimerDropDownOptions = styled.li<{ display: string }>`
+  display: ${(props) => (props.display == "true" ? "flex" : "none")};
+  flex-direction: column;
+  width: 8.75rem;
+  position: absolute;
+  background: white;
+  top: 4.375rem;
+  color: black;
+  border-radius: 0.75rem;
+  box-shadow: 0.0625rem 0.125rem 0.375rem rgba(187, 189, 203, 1);
+`;
 export {
   CrossIcon,
   ModalBackDrop,
@@ -150,4 +193,8 @@ export {
   PurpleCircle,
   CheckIcon,
   ApplyButton,
+  SetTimerDropDownOptions,
+  SetTimerListTile,
+  PickTimeIconListTile,
+  ArrowIconContainer,
 };

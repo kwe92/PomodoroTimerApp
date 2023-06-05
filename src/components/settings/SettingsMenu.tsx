@@ -7,7 +7,7 @@ import {
   HorizontalLine,
   BottomSection,
   SettingsTimerOptions,
-  SetTimerDropDown,
+  SetTimerDropDown as SetTimerDropDownContainer,
   FontSettings,
   OptionsContainer,
   FontCircle,
@@ -17,11 +17,19 @@ import {
   PurpleCircle,
   CheckIcon,
   ApplyButton,
+  SetTimerDropDownOptions,
+  SetTimerListTile,
+  PickTimeIconListTile,
+  ArrowIconContainer,
 } from "./SettingsMenuStyles";
 import { observer } from "mobx-react";
 import Stores from "../../stores/Stores";
 import AppTheme from "../../styles/theme/AppTheme";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
+// TODO: on apply || close reset timer options to false
 interface Props {
   isOpened: boolean;
   onProceed: VoidFunction;
@@ -30,13 +38,20 @@ interface Props {
 }
 
 export default observer(function SettingsMenu(props: Props) {
-  const { settingsModel, currentColorModel, currentFontModel } = Stores();
+  const {
+    settingsModel,
+    currentColorModel,
+    currentFontModel,
+    dislayTimerOptionsModel,
+    timeStore,
+  } = Stores();
   const { fontSettings, colorSettings } = settingsModel;
   const { currentColor, setCurrentColor } = currentColorModel;
   const { isSans, isMono, isSlab, setSans, setMono, setSlab, setFont } =
     currentFontModel;
   const close = () => {
     props.setIsOpened(false);
+    dislayTimerOptionsModel.closeAllTimerOptions();
   };
   const proceed = () => {
     props.onProceed();
@@ -48,7 +63,6 @@ export default observer(function SettingsMenu(props: Props) {
 
   return (
     <DialogModal
-      title="Dialog modal"
       isOpened={props.isOpened}
       onProceed={props.onProceed}
       onClose={props.setIsOpened}
@@ -64,9 +78,66 @@ export default observer(function SettingsMenu(props: Props) {
           <BottomSection>
             <p style={{ color: "black" }}>T I M E ( M I N U T E S )</p>
             <SettingsTimerOptions>
-              <SetTimerDropDown />
-              <SetTimerDropDown />
-              <SetTimerDropDown />
+              <SetTimerDropDownContainer
+                onClick={() => {
+                  dislayTimerOptionsModel.displayPomodoro();
+                }}
+              >
+                <p id="timer-title">pomodoro</p>
+                <PickTimeIconListTile>
+                  <p style={{ color: "black" }}>{timeStore.times.pomodoro}</p>
+                  <ArrowIconContainer>
+                    <KeyboardArrowUpIcon />
+                    <KeyboardArrowDownIcon />
+                  </ArrowIconContainer>
+                </PickTimeIconListTile>
+
+                <TimerDropdownOptions
+                  display={dislayTimerOptionsModel.pomodoroTimerOptions.toString()}
+                  currentColor={currentColor as CurrentColor}
+                  setCurrentTimer={timeStore.times.setPomodoro}
+                />
+              </SetTimerDropDownContainer>
+              <SetTimerDropDownContainer
+                onClick={() => {
+                  dislayTimerOptionsModel.displayShortBreak();
+                }}
+              >
+                <p id="timer-title">short break</p>
+                <PickTimeIconListTile>
+                  <p style={{ color: "black" }}>{timeStore.times.shortBreak}</p>
+                  <ArrowIconContainer>
+                    <KeyboardArrowUpIcon />
+                    <KeyboardArrowDownIcon />
+                  </ArrowIconContainer>
+                </PickTimeIconListTile>
+                <TimerDropdownOptions
+                  display={dislayTimerOptionsModel.shortBreakTimerOptions.toString()}
+                  currentColor={currentColor as CurrentColor}
+                  setCurrentTimer={timeStore.times.setShortBreak}
+                  offSet={10}
+                />
+              </SetTimerDropDownContainer>
+              <SetTimerDropDownContainer
+                onClick={() => {
+                  dislayTimerOptionsModel.displayLongBreak();
+                }}
+              >
+                <p id="timer-title">long break</p>
+                <PickTimeIconListTile>
+                  <p style={{ color: "black" }}>{timeStore.times.longBreak}</p>
+                  <ArrowIconContainer>
+                    <KeyboardArrowUpIcon />
+                    <KeyboardArrowDownIcon />
+                  </ArrowIconContainer>
+                </PickTimeIconListTile>
+                <TimerDropdownOptions
+                  display={dislayTimerOptionsModel.longBreakTimerOptions.toString()}
+                  currentColor={currentColor as CurrentColor}
+                  setCurrentTimer={timeStore.times.setLongBreak}
+                  offSet={5}
+                />
+              </SetTimerDropDownContainer>
             </SettingsTimerOptions>
             <HorizontalLine />
             <FontSettings>
@@ -138,7 +209,6 @@ export default observer(function SettingsMenu(props: Props) {
             currentColor={currentColor as CurrentColor}
             onClick={() => {
               close();
-
               isSans
                 ? setFont("'Kumbh Sans', sans-serif")
                 : isSlab
@@ -158,3 +228,92 @@ export default observer(function SettingsMenu(props: Props) {
     </DialogModal>
   );
 });
+
+// TODO: Add Props to TimerDropdownOptions
+// interface Props {
+// currentTimer: number;
+// setCurrentTimer: Function;
+// }
+const TimerDropdownOptions = ({
+  currentColor,
+  display,
+  setCurrentTimer,
+  offSet = 0,
+}: {
+  currentColor: CurrentColor;
+  setCurrentTimer: Function;
+  display: string;
+  offSet?: number;
+}) => {
+  return (
+    <SetTimerDropDownOptions display={display}>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(15 - offSet);
+        }}
+        currentColor={currentColor}
+      >
+        <AccessTimeIcon />
+        <p>{15 - offSet}</p>
+      </SetTimerListTile>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(20 - offSet);
+        }}
+        currentColor={currentColor}
+      >
+        <AccessTimeIcon />
+        <p>{20 - offSet}</p>
+      </SetTimerListTile>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(25 - offSet);
+        }}
+        currentColor={currentColor}
+      >
+        <AccessTimeIcon />
+        <p>{25 - offSet}</p>
+      </SetTimerListTile>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(30 - offSet);
+        }}
+        currentColor={currentColor}
+      >
+        <AccessTimeIcon />
+        <p>{30 - offSet}</p>
+      </SetTimerListTile>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(45 - offSet);
+        }}
+        currentColor={currentColor}
+      >
+        <AccessTimeIcon />
+        <p>{45 - offSet}</p>
+      </SetTimerListTile>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(52 - offSet);
+        }}
+        currentColor={currentColor}
+      >
+        <AccessTimeIcon />
+        <p>{52 - offSet}</p>
+      </SetTimerListTile>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(60 - offSet);
+        }}
+        currentColor={currentColor}
+      >
+        <AccessTimeIcon />
+        <p>{60 - offSet}</p>
+      </SetTimerListTile>
+    </SetTimerDropDownOptions>
+  );
+};
+
+// const TimerListTile = () => {
+//   return
+// };

@@ -6,6 +6,8 @@ import {
   CirclesContainer,
   TimerText,
 } from "../circles/CirclesStyles";
+import { observer } from "mobx-react";
+import Stores from "../../stores/Stores";
 
 interface Props {
   pctTimeRemaining: number;
@@ -15,7 +17,7 @@ interface Props {
   timerText: string;
 }
 
-export default function Circles(props: Props) {
+export default observer(function Circles(props: Props) {
   const _handleTimerText = () => {
     props.handleTimerText();
   };
@@ -33,4 +35,4 @@ export default function Circles(props: Props) {
       </Circle3>
     </CirclesContainer>
   );
-}
+});
