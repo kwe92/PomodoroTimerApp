@@ -75,6 +75,7 @@ const dislayTimerOptionsModel = DisplayTimerOptionsModel.create({
   shortBreakTimerOptions: false,
   longBreakTimerOptions: false,
 });
+
 export default function Stores() {
   return {
     optionsStore: optionsStore,
