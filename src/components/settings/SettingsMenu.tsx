@@ -19,6 +19,8 @@ import {
   ApplyButton,
   SetTimerDropDownOptions,
   SetTimerListTile,
+  PickTimeIconListTile,
+  ArrowIconContainer,
 } from "./SettingsMenuStyles";
 import { observer } from "mobx-react";
 import Stores from "../../stores/Stores";
@@ -37,7 +39,12 @@ interface Props {
 }
 
 export default observer(function SettingsMenu(props: Props) {
-  const { settingsModel, currentColorModel, currentFontModel } = Stores();
+  const {
+    settingsModel,
+    currentColorModel,
+    currentFontModel,
+    dislayTimerOptionsModel,
+  } = Stores();
   const { fontSettings, colorSettings } = settingsModel;
   const { currentColor, setCurrentColor } = currentColorModel;
   const { isSans, isMono, isSlab, setSans, setMono, setSlab, setFont } =
@@ -71,91 +78,58 @@ export default observer(function SettingsMenu(props: Props) {
           <BottomSection>
             <p style={{ color: "black" }}>T I M E ( M I N U T E S )</p>
             <SettingsTimerOptions>
-              <SetTimerDropDownContainer>
-                <p>pomodoro</p>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    background: "rgba(239,241,250,1)",
-                    padding: "0.0625rem 0.625rem",
-                  }}
-                >
+              <SetTimerDropDownContainer
+                onClick={() => {
+                  dislayTimerOptionsModel.displayPomodoro();
+                }}
+              >
+                <p id="timer-title">pomodoro</p>
+                <PickTimeIconListTile>
                   <p style={{ color: "black" }}>25</p>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      color: "rgba(187,189,203,1)",
-                    }}
-                  >
+                  <ArrowIconContainer>
                     <KeyboardArrowUpIcon />
                     <KeyboardArrowDownIcon />
-                  </div>
-                </div>
+                  </ArrowIconContainer>
+                </PickTimeIconListTile>
 
                 <TimerDropdownOptions
+                  display={dislayTimerOptionsModel.pomodoroTimerOptions.toString()}
                   currentColor={currentColor as CurrentColor}
                 />
               </SetTimerDropDownContainer>
-              <SetTimerDropDownContainer>
-                <p>short break</p>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    background: "rgba(239,241,250,1)",
-                    padding: "0.0625rem 0.625rem",
-                  }}
-                >
+              <SetTimerDropDownContainer
+                onClick={() => {
+                  dislayTimerOptionsModel.displayShortBreak();
+                }}
+              >
+                <p id="timer-title">short break</p>
+                <PickTimeIconListTile>
                   <p style={{ color: "black" }}>25</p>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      color: "rgba(187,189,203,1)",
-                    }}
-                  >
+                  <ArrowIconContainer>
                     <KeyboardArrowUpIcon />
                     <KeyboardArrowDownIcon />
-                  </div>
-                </div>
+                  </ArrowIconContainer>
+                </PickTimeIconListTile>
                 <TimerDropdownOptions
+                  display={dislayTimerOptionsModel.shortBreakTimerOptions.toString()}
                   currentColor={currentColor as CurrentColor}
                 />
               </SetTimerDropDownContainer>
-              <SetTimerDropDownContainer>
-                <p>long</p>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    background: "rgba(239,241,250,1)",
-                    padding: "0.0625rem 0.625rem",
-                  }}
-                >
+              <SetTimerDropDownContainer
+                onClick={() => {
+                  dislayTimerOptionsModel.displayLongBreak();
+                }}
+              >
+                <p id="timer-title">long break</p>
+                <PickTimeIconListTile>
                   <p style={{ color: "black" }}>25</p>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      color: "rgba(187,189,203,1)",
-                    }}
-                  >
+                  <ArrowIconContainer>
                     <KeyboardArrowUpIcon />
                     <KeyboardArrowDownIcon />
-                  </div>
-                </div>
+                  </ArrowIconContainer>
+                </PickTimeIconListTile>
                 <TimerDropdownOptions
+                  display={dislayTimerOptionsModel.longBreakTimerOptions.toString()}
                   currentColor={currentColor as CurrentColor}
                 />
               </SetTimerDropDownContainer>
@@ -258,13 +232,15 @@ export default observer(function SettingsMenu(props: Props) {
 // }
 const TimerDropdownOptions = ({
   currentColor,
+  display,
 }: {
   currentColor: CurrentColor;
   currentTimer?: number;
   setCurrentTimer?: Function;
+  display: string;
 }) => {
   return (
-    <SetTimerDropDownOptions>
+    <SetTimerDropDownOptions display={display}>
       <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
         <AccessTimeIcon />
         <p>15</p>
