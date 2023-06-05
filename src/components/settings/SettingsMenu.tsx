@@ -25,12 +25,11 @@ import {
 import { observer } from "mobx-react";
 import Stores from "../../stores/Stores";
 import AppTheme from "../../styles/theme/AppTheme";
-import CustomizedMenus from "./SelectTimeDropDown";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { FC, Fragment } from "react";
 
+// TODO: on apply || close reset timer options to false
 interface Props {
   isOpened: boolean;
   onProceed: VoidFunction;
@@ -44,6 +43,7 @@ export default observer(function SettingsMenu(props: Props) {
     currentColorModel,
     currentFontModel,
     dislayTimerOptionsModel,
+    timeStore,
   } = Stores();
   const { fontSettings, colorSettings } = settingsModel;
   const { currentColor, setCurrentColor } = currentColorModel;
@@ -51,6 +51,7 @@ export default observer(function SettingsMenu(props: Props) {
     currentFontModel;
   const close = () => {
     props.setIsOpened(false);
+    dislayTimerOptionsModel.closeAllTimerOptions();
   };
   const proceed = () => {
     props.onProceed();
@@ -85,7 +86,7 @@ export default observer(function SettingsMenu(props: Props) {
               >
                 <p id="timer-title">pomodoro</p>
                 <PickTimeIconListTile>
-                  <p style={{ color: "black" }}>25</p>
+                  <p style={{ color: "black" }}>{timeStore.times.pomodoro}</p>
                   <ArrowIconContainer>
                     <KeyboardArrowUpIcon />
                     <KeyboardArrowDownIcon />
@@ -95,6 +96,7 @@ export default observer(function SettingsMenu(props: Props) {
                 <TimerDropdownOptions
                   display={dislayTimerOptionsModel.pomodoroTimerOptions.toString()}
                   currentColor={currentColor as CurrentColor}
+                  setCurrentTimer={timeStore.times.setPomodoro}
                 />
               </SetTimerDropDownContainer>
               <SetTimerDropDownContainer
@@ -104,7 +106,7 @@ export default observer(function SettingsMenu(props: Props) {
               >
                 <p id="timer-title">short break</p>
                 <PickTimeIconListTile>
-                  <p style={{ color: "black" }}>25</p>
+                  <p style={{ color: "black" }}>{timeStore.times.shortBreak}</p>
                   <ArrowIconContainer>
                     <KeyboardArrowUpIcon />
                     <KeyboardArrowDownIcon />
@@ -113,6 +115,8 @@ export default observer(function SettingsMenu(props: Props) {
                 <TimerDropdownOptions
                   display={dislayTimerOptionsModel.shortBreakTimerOptions.toString()}
                   currentColor={currentColor as CurrentColor}
+                  setCurrentTimer={timeStore.times.setShortBreak}
+                  offSet={10}
                 />
               </SetTimerDropDownContainer>
               <SetTimerDropDownContainer
@@ -122,7 +126,7 @@ export default observer(function SettingsMenu(props: Props) {
               >
                 <p id="timer-title">long break</p>
                 <PickTimeIconListTile>
-                  <p style={{ color: "black" }}>25</p>
+                  <p style={{ color: "black" }}>{timeStore.times.longBreak}</p>
                   <ArrowIconContainer>
                     <KeyboardArrowUpIcon />
                     <KeyboardArrowDownIcon />
@@ -131,6 +135,8 @@ export default observer(function SettingsMenu(props: Props) {
                 <TimerDropdownOptions
                   display={dislayTimerOptionsModel.longBreakTimerOptions.toString()}
                   currentColor={currentColor as CurrentColor}
+                  setCurrentTimer={timeStore.times.setLongBreak}
+                  offSet={5}
                 />
               </SetTimerDropDownContainer>
             </SettingsTimerOptions>
@@ -204,7 +210,6 @@ export default observer(function SettingsMenu(props: Props) {
             currentColor={currentColor as CurrentColor}
             onClick={() => {
               close();
-
               isSans
                 ? setFont("'Kumbh Sans', sans-serif")
                 : isSlab
@@ -233,41 +238,78 @@ export default observer(function SettingsMenu(props: Props) {
 const TimerDropdownOptions = ({
   currentColor,
   display,
+  setCurrentTimer,
+  offSet = 0,
 }: {
   currentColor: CurrentColor;
-  currentTimer?: number;
-  setCurrentTimer?: Function;
+  setCurrentTimer: Function;
   display: string;
+  offSet?: number;
 }) => {
   return (
     <SetTimerDropDownOptions display={display}>
-      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(15 - offSet);
+        }}
+        currentColor={currentColor}
+      >
         <AccessTimeIcon />
-        <p>15</p>
+        <p>{15 - offSet}</p>
       </SetTimerListTile>
-      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(20 - offSet);
+        }}
+        currentColor={currentColor}
+      >
         <AccessTimeIcon />
-        <p>20</p>
+        <p>{20 - offSet}</p>
       </SetTimerListTile>
-      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(25 - offSet);
+        }}
+        currentColor={currentColor}
+      >
         <AccessTimeIcon />
-        <p>25</p>
+        <p>{25 - offSet}</p>
       </SetTimerListTile>
-      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(30 - offSet);
+        }}
+        currentColor={currentColor}
+      >
         <AccessTimeIcon />
-        <p>30</p>
+        <p>{30 - offSet}</p>
       </SetTimerListTile>
-      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(45 - offSet);
+        }}
+        currentColor={currentColor}
+      >
         <AccessTimeIcon />
-        <p>45</p>
+        <p>{45 - offSet}</p>
       </SetTimerListTile>
-      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(52 - offSet);
+        }}
+        currentColor={currentColor}
+      >
         <AccessTimeIcon />
-        <p>52</p>
+        <p>{52 - offSet}</p>
       </SetTimerListTile>
-      <SetTimerListTile onClick={() => {}} currentColor={currentColor}>
+      <SetTimerListTile
+        onClick={() => {
+          setCurrentTimer(60 - offSet);
+        }}
+        currentColor={currentColor}
+      >
         <AccessTimeIcon />
-        <p>60</p>
+        <p>{60 - offSet}</p>
       </SetTimerListTile>
     </SetTimerDropDownOptions>
   );
