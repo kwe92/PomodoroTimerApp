@@ -116,6 +116,22 @@ const CheckIcon = styled(BsCheckLg)<BsCheckProps>`
   display: ${(props) => (props.displayon == "true" ? "inline" : "none")};
   color: black;
 `;
+
+interface ApplyButtonProps {
+  currentColor: CurrentColor;
+}
+const ApplyButton = styled.button<ApplyButtonProps>`
+  position: relative;
+  top: 3.125rem;
+  left: 12.5rem;
+  width: 8.75rem;
+  height: 3.375rem;
+  background: ${(props) => props.currentColor};
+  border: none;
+  border-radius: ${8.75 / 2}rem;
+  font-size: 1rem;
+  color: white;
+`;
 export {
   CrossIcon,
   ModalBackDrop,
@@ -133,4 +149,5 @@ export {
   BlueCircle,
   PurpleCircle,
   CheckIcon,
+  ApplyButton,
 };
