@@ -20,6 +20,7 @@ export default observer(function CircularProgress(props: Props) {
         strokeWidth={3}
         styles={buildStyles({
           pathColor: currentColor,
+          trailColor: "rgba(0,0,0,0)",
         })}
       />
     </CircularProgressbarContainer>
