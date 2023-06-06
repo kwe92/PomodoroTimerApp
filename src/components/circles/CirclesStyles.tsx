@@ -21,6 +21,12 @@ const Circle1 = styled(Column)`
     3.125rem 3.125rem 16.25rem 0 #121530;
   // ?? background-image covers the middle div
   background-image: linear-gradient(-45deg, #2e325a 0%, #0e112a 100%);
+
+  @media screen and (max-width: 450px) {
+    width: 23.625rem;
+    height: 23.625rem;
+    border-radius: ${23.625 / 2}rem;
+  }
 `;
 
 const Circle2 = styled(Column)`
@@ -30,6 +36,13 @@ const Circle2 = styled(Column)`
   border-radius: ${22.875 / 2}rem;
   // border: 1px solid blue;
   position: absolute;
+
+  @media screen and (max-width: 450px) {
+    width: 20.875rem;
+    height: 20.875rem;
+
+    border-radius: ${20.875 / 2}rem;
+  }
 `;
 
 const Circle3 = styled(Column)`
@@ -41,11 +54,27 @@ const Circle3 = styled(Column)`
 
   #timer {
     color: white;
-    font-size: 6.25rem;
+    font-size: 5.75rem;
   }
 
   #circle-spacer {
-    height: 2.25rem;
+    height: 1.5rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 19.1875rem;
+    height: 19.1875rem;
+
+    border-radius: ${19.1875 / 2}rem;
+
+    #timer {
+      color: white;
+      font-size: 5rem;
+    }
+
+    #circle-spacer {
+      height: 0.75rem;
+    }
   }
 `;
 
@@ -53,6 +82,11 @@ const CircularProgressbarContainer = styled(Column)`
   width: 21.1875rem;
   height: 21.1875rem;
   position: absolute;
+
+  @media screen and (max-width: 450px) {
+    width: 19.1875rem;
+    height: 19.1875rem;
+  }
 `;
 
 const TimerText = styled.p`
