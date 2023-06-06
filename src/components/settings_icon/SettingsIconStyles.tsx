@@ -8,6 +8,9 @@ const GearIconContainer = styled.div`
   flex-direction: column;
   justify-content: end;
   align-items: center;
+  @media screen and (max-width: 450px) {
+    height: 20.5rem;
+  }
 `;
 
 const GearIcon = styled(IoMdSettings)`
