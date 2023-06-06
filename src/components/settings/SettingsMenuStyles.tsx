@@ -120,7 +120,7 @@ interface ApplyButtonProps {
 }
 const ApplyButton = styled.button<ApplyButtonProps>`
   position: relative;
-  top: 2.125rem;
+  top: 2.75rem;
   left: 12.5rem;
   width: 8.75rem;
   height: 3.375rem;
@@ -131,7 +131,7 @@ const ApplyButton = styled.button<ApplyButtonProps>`
   color: white;
 
   @media screen and (max-width: 450px) {
-    top: 0.625rem;
+    top: 1rem;
     left: 5.625rem;
   }
 `;
