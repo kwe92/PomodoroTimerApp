@@ -49,7 +49,7 @@ const Circle3 = styled(Column)`
   width: 21.1875rem;
   height: 21.1875rem;
   border-radius: ${21.1875 / 2}rem;
-  border: 10px solid #f87070;
+  // border: 10px solid #f87070;
   position: absolute;
 
   #timer {
