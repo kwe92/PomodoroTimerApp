@@ -44,7 +44,7 @@ Users should be able to:
 ## Links
 
 - Live Site URL: [Pomodoro-App](https://pomodoro-timer-app-d3fb8.web.app)
-- Solution URL: [Pomodoro-App: Frontend Mentor]()
+- Solution URL: [Pomodoro-App: Frontend Mentor](https://www.frontendmentor.io/solutions/react-typescript-mobxstatetree-styledcomponents-Jtu7q0jG3r)
 
 ## Screenshots
 
