@@ -50,6 +50,15 @@ Users should be able to:
 
 ### Desktop / Tablet View
 
+<img width="1440" alt="Screenshot 2023-06-06 at 11 34 26 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/61018a6e-83af-4419-910e-3304cb910b39">
+
+<img width="1440" alt="Screenshot 2023-06-06 at 11 34 50 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/41eb40f6-6e16-4b0c-9393-a6282aa24192">
+
+<img width="1440" alt="Screenshot 2023-06-06 at 11 35 17 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/228f239e-357c-45be-9523-c871c2a704dc">
+
+<img width="1440" alt="Screenshot 2023-06-06 at 11 35 30 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/63ed664c-aaa6-4574-a203-41ef94ed7c54">
+
+
 ### Mobile View
 
 #### Author: Kweayon Clark
