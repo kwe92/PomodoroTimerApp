@@ -60,9 +60,9 @@ Users should be able to:
 
 ### Mobile View
 
-<img width="521" alt="Screenshot 2023-06-06 at 11 36 07 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/f273767a-f819-43d1-be5f-c972c5488d49">
+<img width="427" alt="Screenshot 2023-06-06 at 12 01 10 PM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/7aa41def-5a8f-4f12-bdd5-8548131a29d7">
 
-<img width="460" alt="Screenshot 2023-06-06 at 11 36 36 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/6f250021-826f-4c67-b305-d3712461a8dc">
+<img width="424" alt="Screenshot 2023-06-06 at 12 01 35 PM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/80e34b94-9fe4-4274-8391-ebf355f1a6a1">
 
 <img width="390" alt="Screenshot 2023-06-06 at 11 56 07 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/a3b0ae31-993e-4225-a527-230e1bd55352">
 
