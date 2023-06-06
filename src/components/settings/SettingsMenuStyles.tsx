@@ -26,6 +26,13 @@ const SettingsContainer = styled.div`
   height: 30.625rem;
   background: ${AppTheme.lightColors.shade2};
   border-radius: 25px;
+  @media screen and (max-width: 450px) {
+    width: 20.5rem;
+    height: 34.375rem;
+    position: relative;
+    bottom: 3rem;
+    left: 1rem;
+  }
 `;
 
 const TopSection = styled.div`
@@ -48,6 +55,11 @@ const HorizontalLine = styled.div`
 const BottomSection = styled(Column)`
   padding: 0 2.5rem;
   align-items: start;
+  // ?? remove maybe
+  @media screen and (max-width: 450px) {
+    padding: 0 1.25rem;
+    align-items: center;
+  }
 `;
 
 const FontSettings = styled(Row)`
@@ -108,7 +120,7 @@ interface ApplyButtonProps {
 }
 const ApplyButton = styled.button<ApplyButtonProps>`
   position: relative;
-  top: 3.125rem;
+  top: 2.125rem;
   left: 12.5rem;
   width: 8.75rem;
   height: 3.375rem;
@@ -117,6 +129,11 @@ const ApplyButton = styled.button<ApplyButtonProps>`
   border-radius: ${8.75 / 2}rem;
   font-size: 1rem;
   color: white;
+
+  @media screen and (max-width: 450px) {
+    top: 0.625rem;
+    left: 5.625rem;
+  }
 `;
 
 const SettingsTimerOptions = styled(Row)`
@@ -124,6 +141,11 @@ const SettingsTimerOptions = styled(Row)`
   height: 4.375rem;
   margin-top: 1.5rem;
   justify-content: space-between;
+  // ?? maybe remove
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    margin-bottom: 6rem;
+  }
 `;
 
 const SetTimerDropDown = styled.ul`
@@ -137,6 +159,14 @@ const SetTimerDropDown = styled.ul`
   height: 100%;
   #timer-title {
     color: rgba(165, 166, 178, 1);
+  }
+  // ?? remove maybe
+  @media screen and (max-width: 450px) {
+    flex-direction: row;
+    align-items: center;
+    padding: 0.25rem 0;
+    justify-content: space-between;
+    width: 100%;
   }
 `;
 
@@ -157,6 +187,10 @@ const PickTimeIconListTile = styled(Row)`
   background: rgba(239, 241, 250, 1);
   padding: 0.0625rem 0.625rem;
   border-radius: 0.75rem;
+
+  @media screen and (max-width: 450px) {
+    width: 8.75rem;
+  }
 `;
 
 const ArrowIconContainer = styled(Column)`
@@ -174,6 +208,11 @@ const SetTimerDropDownOptions = styled.li<{ display: string }>`
   color: black;
   border-radius: 0.75rem;
   box-shadow: 0.0625rem 0.125rem 0.375rem rgba(187, 189, 203, 1);
+  // TODO: convert to rem
+  @media screen and (max-width: 450px) {
+    left: 2.25rem;
+    top: 2.5rem;
+  }
 `;
 export {
   CrossIcon,
