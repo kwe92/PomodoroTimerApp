@@ -58,7 +58,12 @@ Users should be able to:
 
 <img width="1440" alt="Screenshot 2023-06-06 at 11 35 30 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/63ed664c-aaa6-4574-a203-41ef94ed7c54">
 
-
 ### Mobile View
+
+<img width="521" alt="Screenshot 2023-06-06 at 11 36 07 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/f273767a-f819-43d1-be5f-c972c5488d49">
+
+<img width="460" alt="Screenshot 2023-06-06 at 11 36 36 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/6f250021-826f-4c67-b305-d3712461a8dc">
+
+<img width="390" alt="Screenshot 2023-06-06 at 11 56 07 AM" src="https://github.com/kwe92/PomodoroTimerApp/assets/47009536/a3b0ae31-993e-4225-a527-230e1bd55352">
 
 #### Author: Kweayon Clark
