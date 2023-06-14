@@ -27,6 +27,12 @@ const Circle1 = styled(Column)`
     height: 23.625rem;
     border-radius: ${23.625 / 2}rem;
   }
+
+  @media screen and (max-width: 400px) {
+    width: 21.625rem;
+    height: 21.625rem;
+    border-radius: ${21.625 / 2}rem;
+  }
 `;
 
 const Circle2 = styled(Column)`
@@ -42,6 +48,13 @@ const Circle2 = styled(Column)`
     height: 20.875rem;
 
     border-radius: ${20.875 / 2}rem;
+  }
+
+  @media screen and (max-width: 400px) {
+    width: 18.875rem;
+    height: 18.875rem;
+
+    border-radius: ${18.875 / 2}rem;
   }
 `;
 
@@ -76,6 +89,22 @@ const Circle3 = styled(Column)`
       height: 0.75rem;
     }
   }
+
+  @media screen and (max-width: 400px) {
+    width: 17.1875rem;
+    height: 17.1875rem;
+
+    border-radius: ${17.1875 / 2}rem;
+
+    #timer {
+      color: white;
+      font-size: 5rem;
+    }
+
+    #circle-spacer {
+      height: 0.75rem;
+    }
+  }
 `;
 
 const CircularProgressbarContainer = styled(Column)`
@@ -86,6 +115,10 @@ const CircularProgressbarContainer = styled(Column)`
   @media screen and (max-width: 450px) {
     width: 19.1875rem;
     height: 19.1875rem;
+  }
+  @media screen and (max-width: 400px) {
+    width: 17.1875rem;
+    height: 17.1875rem;
   }
 `;
 
