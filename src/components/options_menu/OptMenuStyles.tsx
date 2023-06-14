@@ -13,6 +13,10 @@ const OptionsMenu = styled(Row)`
   p {
     font-size: 0.875rem;
   }
+
+  @media screen and (max-width: 400px) {
+    width: 21.3125rem;
+  }
 `;
 // TODO Needs work
 const HighlightBubble = styled(Row)<{
@@ -25,6 +29,10 @@ const HighlightBubble = styled(Row)<{
   cursor: pointer;
   background: ${(props) =>
     props.display ? props.currentColor : AppTheme.darkColors.shade0};
+
+  @media screen and (max-width: 400px) {
+    width: 6rem;
+  }
 `;
 
 export { OptionsMenu, HighlightBubble };
